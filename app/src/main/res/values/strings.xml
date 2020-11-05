@@ -2,4 +2,5 @@
     <string name="app_name">FoodTrck</string>
     <string name="title_FoodTruckNav">List</string>
     <string name="title_MapNav">Map</string>
+    <string name="title_FoodTruckList">Available Regions</string>
 </resources>
