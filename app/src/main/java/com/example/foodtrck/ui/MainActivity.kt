@@ -1,9 +1,8 @@
-package com.example.foodtrck
+package com.example.foodtrck.ui
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
+import com.example.foodtrck.R
+import timber.log.Timber
 
 class MainActivity : BaseActivity() {
 
@@ -17,6 +16,8 @@ class MainActivity : BaseActivity() {
 //        // menu should be considered as top level destinations.
 //        val appBarConfiguration = AppBarConfiguration(setOf(
 //                R.id.navigation_FoodTruckList, R.id.navigation_map))
+
+        Timber.d("TIMBER TEST")
     }
 
     override fun getLayoutId(): Int {
