@@ -1,9 +1,7 @@
-package com.example.foodtrck
+package com.example.foodtrck.ui.main
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
+import com.example.foodtrck.R
 
 class MainActivity : BaseActivity() {
 

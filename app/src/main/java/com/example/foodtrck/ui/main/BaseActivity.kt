@@ -1,9 +1,9 @@
-package com.example.foodtrck
+package com.example.foodtrck.ui.main
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.foodtrck.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private const val TAG = "BaseActivity"
