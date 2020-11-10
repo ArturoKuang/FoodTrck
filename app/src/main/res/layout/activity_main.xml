@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/foodTruckList_Fragment"
-        android:name="com.example.foodtrck.ui.Fragments.RegionListFragment"
+        android:name="com.example.foodtrck.ui.fragments.RegionListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
