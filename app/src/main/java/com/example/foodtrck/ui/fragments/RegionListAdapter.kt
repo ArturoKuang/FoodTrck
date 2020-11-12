@@ -48,7 +48,11 @@ class RegionListAdapter(private var listener: RegionItemListener)
 
         fun bind(item: Region) {
             this.region = item
-            itemBinding.titleRegion.text =item.name
+            if(item.nameLong.isNullOrBlank()) {
+                itemBinding.titleRegion.text = item.name
+            } else {
+                itemBinding.titleRegion.text = item.nameLong
+            }
         }
 
         override fun onClick(p0: View?) {
