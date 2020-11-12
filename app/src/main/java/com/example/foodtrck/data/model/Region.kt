@@ -7,11 +7,10 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "regions")
 data class Region(
-    @NonNull
     @PrimaryKey
     @SerializedName("identifier")
     val id: String,
     val name: String,
     @SerializedName("name_long")
-    val nameLong: String
+    val nameLong: String?
 )

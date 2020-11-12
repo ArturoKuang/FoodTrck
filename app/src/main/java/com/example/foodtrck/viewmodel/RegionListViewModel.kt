@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodtrck.data.model.Region
-import com.example.foodtrck.data.model.RegionResponse
 import com.example.foodtrck.data.repository.StreetFoodRepository
 import com.example.foodtrck.utils.Resource
 import kotlinx.coroutines.flow.collect
@@ -16,8 +15,8 @@ class RegionListViewModel @ViewModelInject constructor(
     private val repository: StreetFoodRepository
 ) : ViewModel() {
 
-    private val _regionList = MutableLiveData<Resource<RegionResponse>>()
-    val regionList = _regionList
+    private val _regionList = MutableLiveData<Resource<List<Region>>>()
+    val regionList: LiveData<Resource<List<Region>>> = _regionList
 
     init {
         fetchRegions()

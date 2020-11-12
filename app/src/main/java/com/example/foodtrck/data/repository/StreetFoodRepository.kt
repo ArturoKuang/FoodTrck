@@ -2,7 +2,6 @@ package com.example.foodtrck.data.repository
 
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.model.Region
-import com.example.foodtrck.data.model.RegionResponse
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
 import com.example.foodtrck.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,7 @@ class StreetFoodRepository @Inject constructor(
     private val regionDao: RegionDao
 ) {
 
-    suspend fun fetchRegions() : Flow<Resource<RegionResponse>?> {
+    suspend fun fetchRegions() : Flow<Resource<List<Region>>?> {
         return flow {
             emit(fetchRegionsCache())
             emit(Resource.loading())
@@ -24,7 +23,7 @@ class StreetFoodRepository @Inject constructor(
             val result = remoteDataSource.getRegions()
 
             if(result.status == Resource.Status.SUCCESS) {
-                result.data?.results?.let { it ->
+                result.data?.let { it ->
                     regionDao.deleteAll(it)
                     regionDao.insertAll(it)
                 }
@@ -36,9 +35,9 @@ class StreetFoodRepository @Inject constructor(
     }
 
 
-    private fun fetchRegionsCache() : Resource<RegionResponse>? =
+    private fun fetchRegionsCache() : Resource<List<Region>>? =
         regionDao.getAll()?.let {
-            Resource.success(RegionResponse(it))
+            Resource.success(it)
     }
 
 }

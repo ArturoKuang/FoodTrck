@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -49,7 +48,7 @@ class RegionListFragment : Fragment(), RegionListAdapter.RegionItemListener {
         viewModel.regionList.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Resource.Status.SUCCESS -> {
-                    result.data?.results?.let { list ->
+                    result.data?.let { list ->
                         adapter.updateData(list)
                     }
                     binding.progressBar.visibility = View.GONE
