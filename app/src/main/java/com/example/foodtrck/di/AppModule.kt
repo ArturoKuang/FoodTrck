@@ -1,5 +1,9 @@
 package com.example.foodtrck.di
 
+import android.content.Context
+import androidx.room.Room
+import com.example.foodtrck.data.local.RegionDao
+import com.example.foodtrck.data.local.RegionDatabase
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
 import com.example.foodtrck.data.remote.StreetFoodService
 import com.example.foodtrck.data.repository.StreetFoodRepository
@@ -9,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -45,8 +50,23 @@ object AppModule {
     @Provides
     fun provideCharacterService(retrofit: Retrofit): StreetFoodService = retrofit.create(StreetFoodService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideRegionDatabase(@ApplicationContext appContext: Context) : RegionDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            RegionDatabase::class.java,
+            "region.db"
+        ).build()
+    }
+
+    @Provides
+    fun provideRegionDao(regionDatabase: RegionDatabase): RegionDao {
+        return regionDatabase.regionDao()
+    }
+
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: StreetFoodRemoteDataSource) =
-        StreetFoodRepository(remoteDataSource)
+    fun provideRepository(remoteDataSource: StreetFoodRemoteDataSource, regionDao: RegionDao) =
+        StreetFoodRepository(remoteDataSource, regionDao)
 }
