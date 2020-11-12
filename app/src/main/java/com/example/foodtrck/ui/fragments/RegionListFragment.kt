@@ -17,8 +17,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RegionListFragment : Fragment() {
 
-    @Inject lateinit var streetFoodRepository: StreetFoodRepository
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,12 +29,5 @@ class RegionListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val uiScope = CoroutineScope(Dispatchers.Main)
-
-        uiScope.launch {
-            streetFoodRepository.getRegions().observe(viewLifecycleOwner, Observer {
-                it.status
-            })
-        }
     }
 }

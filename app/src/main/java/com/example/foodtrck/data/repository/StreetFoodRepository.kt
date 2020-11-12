@@ -1,30 +1,44 @@
 package com.example.foodtrck.data.repository
 
-import android.graphics.Region
-import androidx.lifecycle.liveData
+import com.example.foodtrck.data.local.RegionDao
+import com.example.foodtrck.data.model.Region
+import com.example.foodtrck.data.model.RegionResponse
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
 import com.example.foodtrck.utils.Resource
-import com.example.foodtrck.utils.performGetOperation
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import okhttp3.Dispatcher
-import timber.log.Timber
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class StreetFoodRepository @Inject constructor(
-    private val remoteDataSource: StreetFoodRemoteDataSource
+    private val remoteDataSource: StreetFoodRemoteDataSource,
+    private val regionDao: RegionDao
 ) {
 
-    suspend fun getRegions() = liveData<Resource<List<Region>>>(Dispatchers.IO) {
-        emit(Resource.loading())
+    suspend fun fetchRegions() : Flow<Resource<RegionResponse>?> {
+        return flow {
+            emit(fetchRegionsCache())
+            emit(Resource.loading())
 
-        val responseStatus = remoteDataSource.getRegions()
-        if (responseStatus.status == Resource.Status.SUCCESS) {
-            Timber.d("Response Success ${responseStatus.data}")
+            val result = remoteDataSource.getRegions()
 
-        } else if (responseStatus.status == Resource.Status.ERROR) {
-            emit(Resource.error(responseStatus.message!!))
-        }
+            if(result.status == Resource.Status.SUCCESS) {
+                result.data?.results?.let { it ->
+                    regionDao.deleteAll(it)
+                    regionDao.insertAll(it)
+                }
+            }
+
+            emit(result)
+
+        }.flowOn(Dispatchers.IO)
+    }
+
+
+    private fun fetchRegionsCache() : Resource<RegionResponse>? =
+        regionDao.getAll()?.let {
+            Resource.success(RegionResponse(it))
     }
 
 }
