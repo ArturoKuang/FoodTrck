@@ -1,4 +1,4 @@
-package com.example.foodtrck.ui.fragments
+package com.example.foodtrck.ui.regions
 
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +37,7 @@ class RegionListAdapter(private var listener: RegionItemListener)
         holder.bind(regions[position])
     }
 
-    class RegionViewHolder(private val itemBinding: RegionListItemBinding, private val listener: RegionListAdapter.RegionItemListener) : RecyclerView.ViewHolder(itemBinding.root),
+    class RegionViewHolder(private val itemBinding: RegionListItemBinding, private val listener: RegionItemListener) : RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 
         private lateinit var region: Region
@@ -56,7 +56,7 @@ class RegionListAdapter(private var listener: RegionItemListener)
         }
 
         override fun onClick(p0: View?) {
-            TODO("Not yet implemented")
+            listener.onClickRegion(region.id)
         }
     }
 }

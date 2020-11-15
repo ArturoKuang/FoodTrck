@@ -1,4 +1,4 @@
-package com.example.foodtrck.ui.fragments
+package com.example.foodtrck.ui.regions
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -63,6 +63,6 @@ class RegionListFragment : Fragment(), RegionListAdapter.RegionItemListener {
     }
 
     override fun onClickRegion(regionName: String) {
-        TODO("Not yet implemented")
+
     }
 }
