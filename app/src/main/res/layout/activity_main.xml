@@ -18,8 +18,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-    <fragment
-        android:id="@+id/foodTruckList_Fragment"
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
         android:name="com.example.foodtrck.ui.regions.RegionListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,5 +30,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:layout="@layout/region_list" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

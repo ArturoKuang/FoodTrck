@@ -2,11 +2,13 @@ package com.example.foodtrck.ui
 
 import android.os.Bundle
 import com.example.foodtrck.R
+import com.example.foodtrck.ui.foodtrucks.FoodTruckListFragment
+import com.example.foodtrck.ui.regions.RegionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), RegionListAdapter.RegionItemListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,5 +21,15 @@ class MainActivity : BaseActivity() {
 
     override fun getBottomNavigationMenuItemId(): Int {
         return R.id.navigation_FoodTruckList
+    }
+
+    override fun onClickRegion(regionName: String) {
+        Timber.d(regionName)
+        val fragment = FoodTruckListFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.foodtrck.ui.regions
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +17,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class RegionListFragment : Fragment(), RegionListAdapter.RegionItemListener {
+class RegionListFragment : Fragment() {
 
     private var binding: RegionListBinding by autoCleared()
     private val viewModel: RegionListViewModel by viewModels()
     private lateinit var adapter: RegionListAdapter
+    private var regionItemListener: RegionListAdapter.RegionItemListener? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        regionItemListener = context as RegionListAdapter.RegionItemListener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +45,7 @@ class RegionListFragment : Fragment(), RegionListAdapter.RegionItemListener {
     }
 
     private fun setupRecycleViewer() {
-        adapter = RegionListAdapter(this)
+        adapter = RegionListAdapter(regionItemListener!!)
         binding.regionRv.layoutManager = LinearLayoutManager(requireContext())
         binding.regionRv.adapter = adapter
     }
@@ -60,9 +66,5 @@ class RegionListFragment : Fragment(), RegionListAdapter.RegionItemListener {
                     binding.progressBar.visibility = View.VISIBLE
             }
         })
-    }
-
-    override fun onClickRegion(regionName: String) {
-
     }
 }
