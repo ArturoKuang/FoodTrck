@@ -1,19 +1,30 @@
 package com.example.foodtrck.utils
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.map
+import com.example.foodtrck.data.model.Region
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import timber.log.Timber
+import kotlinx.coroutines.flow.flowOn
 
-fun <T, A> performGetOperation(
+fun <A> performGetFlowOperation(
     networkCall: suspend () -> Resource<A>,
-    dataBaseQuery: suspend () -> Resource<T>,
-    saveCallResult: suspend (A) -> Unit): Flow<Result<T>?> {
+    dataBaseQuery: () -> Resource<A>?,
+    saveCallResult: suspend (A) -> Unit): Flow<Resource<A>?> {
 
     return flow {
+        emit(dataBaseQuery())
 
-    }
+        emit(Resource.loading())
+
+        val result = networkCall.invoke()
+
+        if(result.status == Resource.Status.SUCCESS) {
+            result.data?.let { data ->
+                saveCallResult(data)
+            }
+        }
+
+        emit(result)
+
+    }.flowOn(Dispatchers.IO)
 }
