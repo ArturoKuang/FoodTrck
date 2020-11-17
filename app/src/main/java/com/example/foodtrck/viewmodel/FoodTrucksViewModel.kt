@@ -4,6 +4,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.foodtrck.data.model.FoodTruck
+import com.example.foodtrck.data.model.FoodTruckResponse
 import com.example.foodtrck.data.model.Region
 import com.example.foodtrck.data.repository.StreetFoodRepository
 import com.example.foodtrck.utils.Resource
@@ -19,9 +20,9 @@ class FoodTrucksViewModel @ViewModelInject constructor(
         const val KEY = "region_name"
     }
 
-    private val _foodTruckList = MutableLiveData<Resource<List<FoodTruck>>>()
+    private val _foodTruckList = MutableLiveData<Resource<FoodTruckResponse>>()
 
-    val foodTruckList: LiveData<Resource<List<FoodTruck>>> = savedStateHandle
+    val foodTruckList: LiveData<Resource<FoodTruckResponse>> = savedStateHandle
         .getLiveData<String>(KEY)
         .switchMap {
         fetchFoodTrucks(it)
