@@ -29,15 +29,17 @@ class RegionListAdapter(private var listener: RegionItemListener)
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int {
-        return regions.size
-    }
+    override fun getItemCount(): Int = regions.size
+
 
     override fun onBindViewHolder(holder: RegionViewHolder, position: Int) {
         holder.bind(regions[position])
     }
 
-    class RegionViewHolder(private val itemBinding: RegionListItemBinding, private val listener: RegionItemListener) : RecyclerView.ViewHolder(itemBinding.root),
+    class RegionViewHolder(
+        private val itemBinding: RegionListItemBinding,
+        private val listener: RegionItemListener)
+        : RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 
         private lateinit var region: Region

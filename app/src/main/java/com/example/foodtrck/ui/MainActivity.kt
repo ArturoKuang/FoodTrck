@@ -2,18 +2,17 @@ package com.example.foodtrck.ui
 
 import android.os.Bundle
 import com.example.foodtrck.R
+import com.example.foodtrck.ui.foodtrucks.FoodTruckListAdapter
 import com.example.foodtrck.ui.foodtrucks.FoodTruckListFragment
 import com.example.foodtrck.ui.regions.RegionListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity(), RegionListAdapter.RegionItemListener {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+class MainActivity :
+    BaseActivity(),
+    RegionListAdapter.RegionItemListener,
+    FoodTruckListAdapter.FoodTruckItemListener {
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -30,5 +29,9 @@ class MainActivity : BaseActivity(), RegionListAdapter.RegionItemListener {
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onClickFoodTruck() {
+        Timber.d("Clicked on FoodTruck!")
     }
 }
