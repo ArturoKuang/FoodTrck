@@ -2,6 +2,8 @@ package com.example.foodtrck.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.foodtrck.data.local.FoodTruckDao
+import com.example.foodtrck.data.local.FoodTruckDatabase
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.local.RegionDatabase
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
@@ -61,12 +63,27 @@ object AppModule {
     }
 
     @Provides
+    @Singleton
+    fun providesFoodTruckDatabase(@ApplicationContext appContext: Context): FoodTruckDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            FoodTruckDatabase::class.java,
+            "foodtruck.db"
+        ).build()
+    }
+
+    @Provides
     fun provideRegionDao(regionDatabase: RegionDatabase): RegionDao {
         return regionDatabase.regionDao()
     }
 
+    @Provides
+    fun provideFoodTruckDao(foodTruckDatabase: FoodTruckDatabase): FoodTruckDao {
+        return foodTruckDatabase.foodTruckDao()
+    }
+
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: StreetFoodRemoteDataSource, regionDao: RegionDao) =
-        StreetFoodRepository(remoteDataSource, regionDao)
+    fun provideRepository(remoteDataSource: StreetFoodRemoteDataSource, regionDao: RegionDao, foodTruckDao: FoodTruckDao) =
+        StreetFoodRepository(remoteDataSource, regionDao, foodTruckDao)
 }

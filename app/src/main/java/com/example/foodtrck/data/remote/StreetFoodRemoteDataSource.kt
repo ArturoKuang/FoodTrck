@@ -8,6 +8,5 @@ class StreetFoodRemoteDataSource @Inject constructor(
 
     suspend fun getRegions() = getResult { streetFoodService.getRegions() }
 
-    //TODO
-    //suspend fun getFoodTrucks
+    suspend fun getFoodTrucks(region: String) = getResult { streetFoodService.getFoodTrucks(region) }
 }

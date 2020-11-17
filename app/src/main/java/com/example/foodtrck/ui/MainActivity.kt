@@ -24,8 +24,7 @@ class MainActivity : BaseActivity(), RegionListAdapter.RegionItemListener {
     }
 
     override fun onClickRegion(regionName: String) {
-        Timber.d(regionName)
-        val fragment = FoodTruckListFragment.newInstance()
+        val fragment = FoodTruckListFragment.newInstance(regionName)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)

@@ -51,7 +51,7 @@ class RegionListFragment : Fragment() {
     }
 
     private fun subscribeUI() {
-        viewModel.regionList.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.regionList.observe(viewLifecycleOwner, { result ->
             when (result.status) {
                 Resource.Status.SUCCESS -> {
                     result.data?.let { list ->
