@@ -87,7 +87,9 @@ dependencies {
 
     //Glide
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation ("com.github.bumptech.glide:recyclerview-integration:4.11.0") {
+        // Excludes the support library because it's already included by Glide.
+        transitive = false
+    }
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    // Skip this if you don't want to use integration libraries or configure Glide.
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }

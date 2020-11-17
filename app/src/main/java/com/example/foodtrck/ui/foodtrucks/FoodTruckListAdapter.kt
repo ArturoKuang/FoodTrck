@@ -19,7 +19,7 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FoodTruckListAdapter.FoodTruckListViewHolder {
+    ): FoodTruckListViewHolder {
 
         val binding: FoodtruckListItemBinding =
             FoodtruckListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,7 +41,7 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
         foodtrucks.size
 
     override fun onBindViewHolder(
-        holder: FoodTruckListAdapter.FoodTruckListViewHolder,
+        holder: FoodTruckListViewHolder,
         position: Int
     ) {
         holder.bind(foodtrucks[position])

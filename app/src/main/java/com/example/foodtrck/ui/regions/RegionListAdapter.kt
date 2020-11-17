@@ -19,6 +19,7 @@ class RegionListAdapter(private var listener: RegionItemListener)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RegionViewHolder {
         val binding: RegionListItemBinding =
             RegionListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return RegionViewHolder(binding, listener)
     }
 
@@ -30,7 +31,6 @@ class RegionListAdapter(private var listener: RegionItemListener)
     }
 
     override fun getItemCount(): Int = regions.size
-
 
     override fun onBindViewHolder(holder: RegionViewHolder, position: Int) {
         holder.bind(regions[position])
