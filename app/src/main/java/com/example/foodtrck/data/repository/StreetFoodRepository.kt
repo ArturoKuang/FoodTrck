@@ -1,5 +1,7 @@
 package com.example.foodtrck.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.example.foodtrck.data.local.FoodTruckDao
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.model.FoodTruck
@@ -46,6 +48,12 @@ class StreetFoodRepository @Inject constructor(
             emit(result)
         }.flowOn(Dispatchers.IO)
     }
+
+    fun fetchFoodTruck(foodTruckID: String): LiveData<FoodTruck?> =
+        liveData(Dispatchers.IO) {
+            emitSource(foodTruckDao.get(foodTruckID))
+        }
+
 
     private fun saveToFoodTruckDatabase(data: List<FoodTruck>) {
         foodTruckDao.deleteAll(data)

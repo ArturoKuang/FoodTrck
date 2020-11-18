@@ -14,7 +14,7 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
     : RecyclerView.Adapter<FoodTruckListAdapter.FoodTruckListViewHolder>() {
 
     interface  FoodTruckItemListener {
-        fun onClickFoodTruck()
+        fun onClickFoodTruck(foodTruckID: String)
     }
 
     private val foodtrucks = ArrayList<FoodTruck>()
@@ -73,7 +73,7 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
         }
 
         override fun onClick(v: View?) {
-            listener.onClickFoodTruck()
+            listener.onClickFoodTruck(foodTruck.id)
         }
     }
 }

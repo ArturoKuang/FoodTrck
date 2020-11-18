@@ -1,10 +1,14 @@
 package com.example.foodtrck.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.example.foodtrck.R
+import com.example.foodtrck.data.model.FoodTruck
+import com.example.foodtrck.ui.foodtruck.FoodTruckFragment
 import com.example.foodtrck.ui.foodtrucks.FoodTruckListAdapter
 import com.example.foodtrck.ui.foodtrucks.FoodTruckListFragment
 import com.example.foodtrck.ui.regions.RegionListAdapter
+import com.example.foodtrck.viewmodel.FoodTruckViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -31,7 +35,12 @@ class MainActivity :
             .commit()
     }
 
-    override fun onClickFoodTruck() {
-        Timber.d("Clicked on FoodTruck!")
+    override fun onClickFoodTruck(foodTruckID: String) {
+        val fragment = FoodTruckFragment.newInstance(foodTruckID)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

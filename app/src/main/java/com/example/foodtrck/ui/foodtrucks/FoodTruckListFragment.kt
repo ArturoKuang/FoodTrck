@@ -17,7 +17,7 @@ import com.example.foodtrck.viewmodel.RegionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-private const val ARG_REGION_NAME = "region_name"
+const val ARG_REGION_NAME = "arg_region_name"
 
 @AndroidEntryPoint
 class FoodTruckListFragment(): Fragment() {
