@@ -54,6 +54,13 @@ class RegionListFragment : Fragment() {
         viewModel.regionList.observe(viewLifecycleOwner, { result ->
             when (result.status) {
                 Resource.Status.SUCCESS -> {
+
+//                    result.data?.filter { region ->
+//                        !(region.locations.isNullOrEmpty())
+//                    }?.let { list ->
+//                        adapter.updateData(list)
+//                    }
+
                     result.data?.let { list ->
                         adapter.updateData(list)
                     }
