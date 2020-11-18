@@ -5,7 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckListItemBinding
 
@@ -66,7 +67,8 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
 
             Glide.with(itemBinding.root)
                 .load(item.images?.header?.first())
-                .transform(CircleCrop())
+                .placeholder(R.drawable.ic_foodtruck_placeholder)
+                .transform(FitCenter())
                 .into(itemBinding.foodtruckImage)
         }
 
