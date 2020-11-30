@@ -2,6 +2,8 @@ package com.example.foodtrck.data.local
 
 import androidx.room.TypeConverter
 import com.example.foodtrck.data.model.Region
+import com.example.foodtrck.utils.convertJsonToObj
+import com.example.foodtrck.utils.convertToJson
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -10,12 +12,12 @@ class RegionConverter {
 
     @TypeConverter
     fun fromLocationString(value: String?): Region.Location? {
-        return gson.fromJson(value, Region.Location::class.java)
+        return convertJsonToObj(value)
     }
 
     @TypeConverter
     fun toLocationToString(location: Region.Location): String? {
-        return gson.toJson(location) ?: ""
+        return convertToJson(location)
     }
 
     @TypeConverter
@@ -29,6 +31,6 @@ class RegionConverter {
 
     @TypeConverter
     fun toLocationListString(locations: List<Region.Location>): String? {
-        return gson.toJson(locations) ?: ""
+        return convertToJson(locations)
     }
 }

@@ -6,10 +6,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-fun <A> performGetFlowOperation(
-    networkCall: suspend () -> Resource<A>,
-    dataBaseQuery: () -> Resource<A>?,
-    saveCallResult: suspend (A) -> Unit): Flow<Resource<A>?> {
+fun <T> performGetFlowOperation(
+    networkCall: suspend () -> Resource<T>,
+    dataBaseQuery: () -> Resource<T>?,
+    saveCallResult: suspend (T) -> Unit): Flow<Resource<T>?> {
 
     return flow {
         emit(dataBaseQuery())
