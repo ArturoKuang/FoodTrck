@@ -9,6 +9,9 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckListItemBinding
+import timber.log.Timber
+import java.text.DateFormat
+import java.time.format.DateTimeFormatter
 
 class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
     : RecyclerView.Adapter<FoodTruckListAdapter.FoodTruckListViewHolder>() {

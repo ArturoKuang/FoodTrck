@@ -2,6 +2,7 @@ package com.example.foodtrck.data.local
 
 import androidx.room.TypeConverter
 import com.example.foodtrck.data.model.Region
+import com.example.foodtrck.utils.convertJsonToList
 import com.example.foodtrck.utils.convertJsonToObj
 import com.example.foodtrck.utils.convertToJson
 import com.google.gson.Gson
@@ -22,11 +23,7 @@ class RegionConverter {
 
     @TypeConverter
     fun fromLocationListString(value: String?): List<Region.Location>? {
-        if(value.isNullOrBlank()) {
-            return emptyList()
-        }
-
-        return gson.fromJson(value, object : TypeToken<List<Region.Location>>() {}.type)
+        return convertJsonToList<Region.Location>(value)
     }
 
     @TypeConverter

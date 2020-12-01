@@ -20,6 +20,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DateFormat
 import javax.inject.Singleton
 
 @Module
@@ -47,7 +48,10 @@ object AppModule {
 
 
     @Provides
-    fun provideGson(): Gson = GsonBuilder().create()
+    fun provideGson(): Gson =
+        GsonBuilder()
+            .setDateFormat(DateFormat.LONG)
+            .create()
 
     @Provides
     fun provideCharacterService(retrofit: Retrofit): StreetFoodService = retrofit.create(StreetFoodService::class.java)

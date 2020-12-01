@@ -1,8 +1,8 @@
 package com.example.foodtrck.data.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.foodtrck.utils.convertTrimmedDate
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -18,7 +18,8 @@ data class FoodTruck(
     val description: String?,
     val description_short: String?,
     val images: Images? = null,
-    //val last: TimeLastSeen? = null
+    @SerializedName("open")
+    val schedule: List<ScheduleInfo>
 ) {
     data class Images(
         var logo: String,
@@ -26,11 +27,26 @@ data class FoodTruck(
         var header: List<String>
     )
 
-    data class TimeLastSeen(
-        val time: Date,
+    data class ScheduleInfo(
+        val start: Long,
+        val end: Long,
         val display: String,
-        val latitude: Float,
-        val longitude: Float
-    )
+        val latitude: Double,
+        val longitude: Double
+    ) {
+
+        fun getStartDate(): Date {
+            return convertTrimmedDate(start)
+        }
+
+        fun getEndDate(): Date {
+            return convertTrimmedDate(end)
+        }
+
+        fun isOpen(): Boolean {
+            val now = Date()
+            return now > getEndDate()
+        }
+    }
 }
 

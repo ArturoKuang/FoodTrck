@@ -2,9 +2,9 @@ package com.example.foodtrck.data.local
 
 import androidx.room.TypeConverter
 import com.example.foodtrck.data.model.FoodTruck
+import com.example.foodtrck.utils.convertJsonToList
 import com.example.foodtrck.utils.convertJsonToObj
 import com.example.foodtrck.utils.convertToJson
-import com.google.gson.Gson
 import java.util.*
 
 class FoodTruckConverter {
@@ -19,12 +19,12 @@ class FoodTruckConverter {
     }
 
     @TypeConverter
-    fun fromTimeStamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun fromScheduleInfoListString(value: String?): List<FoodTruck.ScheduleInfo>? {
+        return convertJsonToList<FoodTruck.ScheduleInfo>(value)
     }
 
     @TypeConverter
-    fun dateToTimeStamp(date: Date?): Long? {
-        return date?.time
+    fun scheduleInfoListToString(scheduleInfo: List<FoodTruck.ScheduleInfo>): String? {
+        return convertToJson(scheduleInfo)
     }
 }
