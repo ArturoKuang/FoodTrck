@@ -2,7 +2,6 @@ package com.example.foodtrck.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.foodtrck.utils.convertTrimmedDate
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -27,26 +26,29 @@ data class FoodTruck(
         var header: List<String>
     )
 
-    data class ScheduleInfo(
-        val start: Long,
-        val end: Long,
-        val display: String,
-        val latitude: Double,
-        val longitude: Double
-    ) {
+    fun getCurrentSchedule(): ScheduleInfo? {
+        val today = Calendar.getInstance()
+        var currentSchedule: ScheduleInfo? = null
 
-        fun getStartDate(): Date {
-            return convertTrimmedDate(start)
+        for (scheduleInfo in schedule) {
+            val calenderDay = convertDateToCalender(scheduleInfo.getStartDate())
+            if(dayAndMonthEqual(today, calenderDay)) {
+               currentSchedule = scheduleInfo
+            }
         }
 
-        fun getEndDate(): Date {
-            return convertTrimmedDate(end)
-        }
+        return currentSchedule
+    }
 
-        fun isOpen(): Boolean {
-            val now = Date()
-            return now > getEndDate()
-        }
+    private fun dayAndMonthEqual(a: Calendar, b: Calendar): Boolean {
+        return a.get(Calendar.DATE) == b.get(Calendar.DATE) &&
+                a.get(Calendar.MONTH) == b.get(Calendar.MONTH)
+    }
+
+    private fun convertDateToCalender(date: Date): Calendar {
+        val cal = Calendar.getInstance()
+        cal.time = date
+        return cal
     }
 }
 

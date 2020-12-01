@@ -16,11 +16,12 @@ import com.example.foodtrck.viewmodel.FoodTrucksViewModel
 import com.example.foodtrck.viewmodel.RegionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.text.DateFormat
 
 const val ARG_REGION_NAME = "arg_region_name"
 
 @AndroidEntryPoint
-class FoodTruckListFragment(): Fragment() {
+class FoodTruckListFragment() : Fragment() {
 
     private var binding: FoodtruckListBinding by autoCleared()
     private val viewModel: FoodTrucksViewModel by viewModels()
@@ -65,6 +66,20 @@ class FoodTruckListFragment(): Fragment() {
                     result.data?.let { foodTruckResponse ->
                         val list: List<FoodTruck>? =
                             foodTruckResponse.vendors?.values?.toList()
+
+//                        ///DEBUG
+//                        val df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL)
+//                        val sb = StringBuilder(" FoodTrucks Opened Today: \n")
+//                        if (list != null) {
+//                            for (trucks in list) {
+//                                val schedule = trucks.getCurrentSchedule() ?: continue
+//                                val startDate = df.format(schedule.getStartDate())
+//                                val endDate = df.format(schedule.getEndDate())
+//                                sb.append("Name: ${trucks.name} Open: $startDate, Close: $endDate \n")
+//                            }
+//                        }
+//                        sb.append("-----------------------------------------\n")
+//                        Timber.d(sb.toString())
 
                         adapter.updateData(list)
                     }

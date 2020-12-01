@@ -2,34 +2,44 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="4dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/foodtruck_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/foodtruck_image"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Chicken and Rice Guys " />
+        <TextView
+            android:id="@+id/foodtruck_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/foodtruck_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Chicken and Rice Guys " />
 
-    <ImageView
-        android:id="@+id/foodtruck_image"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="TODO"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        <TextView
+            android:id="@+id/foodtruck_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/foodtruck_image"
+            app:layout_constraintTop_toTopOf="@id/foodtruck_name"
+            tools:text="Closed " />
+
+        <ImageView
+            android:id="@+id/foodtruck_image"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="TODO"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

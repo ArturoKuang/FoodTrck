@@ -2,10 +2,10 @@ package com.example.foodtrck.data.local
 
 import androidx.room.TypeConverter
 import com.example.foodtrck.data.model.FoodTruck
+import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.utils.convertJsonToList
 import com.example.foodtrck.utils.convertJsonToObj
 import com.example.foodtrck.utils.convertToJson
-import java.util.*
 
 class FoodTruckConverter {
     @TypeConverter
@@ -19,12 +19,12 @@ class FoodTruckConverter {
     }
 
     @TypeConverter
-    fun fromScheduleInfoListString(value: String?): List<FoodTruck.ScheduleInfo>? {
-        return convertJsonToList<FoodTruck.ScheduleInfo>(value)
+    fun fromScheduleInfoListString(value: String?): List<ScheduleInfo>? {
+        return convertJsonToList<ScheduleInfo>(value)
     }
 
     @TypeConverter
-    fun scheduleInfoListToString(scheduleInfo: List<FoodTruck.ScheduleInfo>): String? {
+    fun scheduleInfoListToString(scheduleInfo: List<ScheduleInfo>): String? {
         return convertToJson(scheduleInfo)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.foodtrck.ui.foodtrucks
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckListItemBinding
-import timber.log.Timber
-import java.text.DateFormat
-import java.time.format.DateTimeFormatter
+import kotlin.collections.ArrayList
 
 class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
     : RecyclerView.Adapter<FoodTruckListAdapter.FoodTruckListViewHolder>() {
@@ -67,6 +66,14 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
         fun bind(item: FoodTruck) {
             foodTruck = item
             itemBinding.foodtruckName.text = foodTruck.name
+
+            val open = "open"
+            val closed = "closed"
+            if (foodTruck.getCurrentSchedule()?.isOpen() == true) {
+                itemBinding.foodtruckOpen.text = open
+            } else {
+                itemBinding.foodtruckOpen.text = closed
+            }
 
             Glide.with(itemBinding.root)
                 .load(item.images?.header?.first() ?: item.images?.logo_small)
