@@ -29,7 +29,6 @@ object Versions {
 }
 
 object Dependencies {
-    // All The Support Android Libraries are grouped in this supportAndroidLibs array
     val supportAndroidLibs = arrayOf(
         "androidx.appcompat:appcompat:${Versions.SupportAndroidLibs.appcompat}",
         "com.google.android.material:material:${Versions.SupportAndroidLibs.material}",
@@ -39,7 +38,6 @@ object Dependencies {
         "androidx.navigation:navigation-ui-ktx:${Versions.SupportAndroidLibs.navigation}",
         "com.android.support.constraint:constraint-layout:${Versions.SupportAndroidLibs.constraintLayout}"
     )
-    // The same here in the Android Architecture Components Libraries
     val androidArchComponents = arrayOf(
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.SupportAndroidLibs.androidArcComponents}",
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.SupportAndroidLibs.androidArcComponents}",
@@ -48,18 +46,15 @@ object Dependencies {
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.SupportAndroidLibs.androidArcComponents}",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.SupportAndroidLibs.androidArcComponents}"
     )
-    // The same here in Kotlin Libraries
     val kotlin = arrayOf(
         "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Kotlin.std}",
         "androidx.core:core-ktx:${Versions.Kotlin.core}",
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}"
     )
-    // The same here in Google Libraries
     val google = arrayOf(
         "com.google.dagger:hilt-android:${Versions.Google.hilt}",
         "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.Google.hilt_platform}"
     )
-    // And here, all the libraries that we are going to use in our two modules which are module1 and module2
     val libraries = arrayOf(
         "com.github.bumptech.glide:glide:${Versions.Libraries.glide}",
         "androidx.room:room-runtime:${Versions.Libraries.room}",

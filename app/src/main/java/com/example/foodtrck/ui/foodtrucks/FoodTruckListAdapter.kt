@@ -76,7 +76,7 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
             }
 
             Glide.with(itemBinding.root)
-                .load(item.images?.header?.first() ?: item.images?.logo_small)
+                .load(item.images?.header?.first() ?: item.images?.logo_small ?: R.drawable.ic_foodtruck_placeholder)
                 .placeholder(R.drawable.ic_foodtruck_placeholder)
                 .transform(FitCenter())
                 .into(itemBinding.foodtruckImage)
