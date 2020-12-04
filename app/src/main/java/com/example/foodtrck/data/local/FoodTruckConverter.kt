@@ -20,7 +20,7 @@ class FoodTruckConverter {
 
     @TypeConverter
     fun fromScheduleInfoListString(value: String?): List<ScheduleInfo>? {
-        return convertJsonToList<ScheduleInfo>(value)
+        return convertJsonToList(value)
     }
 
     @TypeConverter

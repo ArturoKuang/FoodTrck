@@ -14,6 +14,6 @@ data class Region(
     val nameLong: String?,
     val latitude: Double,
     val longitude: Double,
-    val image: GooglePlacePhotoItem? = null
+    var image: GooglePlacePhotoItem? = null
 ) {
 }

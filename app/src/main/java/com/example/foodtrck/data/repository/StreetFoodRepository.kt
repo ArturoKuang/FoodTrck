@@ -25,12 +25,41 @@ class StreetFoodRepository @Inject constructor(
     private val foodTruckDao: FoodTruckDao
 ) {
     suspend fun fetchRegions(): Flow<Resource<List<Region>>?> {
-        googlePlaceRemoteDataSource.searchPhotos("boston,ma", "42.3600825,-71.0588801")
-        return performGetFlowOperation (
-            networkCall = { streetFoodRemoteDataSource.getRegions() },
-            dataBaseQuery = { fetchRegionsCache() },
-            saveCallResult = { saveToRegionsDatabase(it) }
-        )
+//        return performGetFlowOperation (
+//            networkCall = { streetFoodRemoteDataSource.getRegions() },
+//            dataBaseQuery = { fetchRegionsCache() },
+//            saveCallResult = { saveToRegionsDatabase(it) }
+//        )
+
+        return flow {
+            emit(fetchRegionsCache())
+
+            emit(Resource.loading())
+
+            val result = streetFoodRemoteDataSource.getRegions()
+
+            if(result.status == Resource.Status.SUCCESS) {
+                result.data?.let { regionList ->
+
+                    for (region in regionList) {
+                        val name = region.nameLong ?: region.name
+                        val location = "${region.latitude},${region.longitude}"
+
+                        val googlePlaceResponse = googlePlaceRemoteDataSource.searchPhotos(name, location)
+                        val placePhotos = googlePlaceResponse.data?.results?.first()
+                        val placePhotoItem = placePhotos?.photos?.first()
+
+                        region.image = placePhotoItem
+                    }
+
+                    saveToRegionsDatabase(regionList)
+
+                }
+            }
+
+            emit(result)
+
+        }.flowOn(Dispatchers.IO)
     }
 
     suspend fun fetchFoodTrucks(region: String): Flow<Resource<FoodTruckResponse>?> {
