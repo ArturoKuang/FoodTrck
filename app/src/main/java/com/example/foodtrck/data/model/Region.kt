@@ -13,6 +13,7 @@ data class Region(
     @SerializedName("name_long")
     val nameLong: String?,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    val image: GooglePlacePhotoItem? = null
 ) {
 }

@@ -1,6 +1,5 @@
 package com.example.foodtrck.data.remote
 
-import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.model.FoodTruckResponse
 import com.example.foodtrck.data.model.Region
 import retrofit2.Response

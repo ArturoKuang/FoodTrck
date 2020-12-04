@@ -7,6 +7,7 @@ import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.model.FoodTruckResponse
 import com.example.foodtrck.data.model.Region
+import com.example.foodtrck.data.remote.GooglePlaceRemoteDataSource
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
 import com.example.foodtrck.utils.Resource
 import com.example.foodtrck.utils.performGetFlowOperation
@@ -18,13 +19,15 @@ import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class StreetFoodRepository @Inject constructor(
-    private val remoteDataSource: StreetFoodRemoteDataSource,
+    private val googlePlaceRemoteDataSource: GooglePlaceRemoteDataSource,
+    private val streetFoodRemoteDataSource: StreetFoodRemoteDataSource,
     private val regionDao: RegionDao,
     private val foodTruckDao: FoodTruckDao
 ) {
     suspend fun fetchRegions(): Flow<Resource<List<Region>>?> {
+        googlePlaceRemoteDataSource.searchPhotos("boston,ma", "42.3600825,-71.0588801")
         return performGetFlowOperation (
-            networkCall = { remoteDataSource.getRegions() },
+            networkCall = { streetFoodRemoteDataSource.getRegions() },
             dataBaseQuery = { fetchRegionsCache() },
             saveCallResult = { saveToRegionsDatabase(it) }
         )
@@ -35,7 +38,7 @@ class StreetFoodRepository @Inject constructor(
             emit(fetchFoodTruckCache())
             emit(Resource.loading())
         }.transform {
-            val result = remoteDataSource.getFoodTrucks(region)
+            val result = streetFoodRemoteDataSource.getFoodTrucks(region)
 
             if(result.status == Resource.Status.SUCCESS) {
                 result.data?.vendors?.values.let { data ->
