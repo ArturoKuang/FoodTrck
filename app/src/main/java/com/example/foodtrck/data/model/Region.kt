@@ -12,8 +12,8 @@ data class Region(
     val name: String,
     @SerializedName("name_long")
     val nameLong: String?,
-    @SerializedName("regions")
-    val locations: List<Location>? = null
+    val latitude: Double,
+    val longitude: Double,
+    var image: GooglePlacePhotoItem? = null
 ) {
-    data class Location(val identifier: String, val name: String)
 }

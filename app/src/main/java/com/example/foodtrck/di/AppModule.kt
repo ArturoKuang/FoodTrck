@@ -2,13 +2,15 @@ package com.example.foodtrck.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.foodtrck.Config
 import com.example.foodtrck.data.local.FoodTruckDao
 import com.example.foodtrck.data.local.FoodTruckDatabase
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.local.RegionDatabase
-import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
-import com.example.foodtrck.data.remote.StreetFoodService
+import com.example.foodtrck.data.remote.*
 import com.example.foodtrck.data.repository.StreetFoodRepository
+import com.example.foodtrck.utils.GooglePlaceRetrofit
+import com.example.foodtrck.utils.StreetFoodRetrofit
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -27,11 +29,10 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object AppModule {
 
-    private const val BASE_URL = "http://data.streetfoodapp.com/1.1/"
-
     @Singleton
     @Provides
-    fun provideRetrofit(gson: Gson) : Retrofit {
+    @StreetFoodRetrofit
+    fun provideStreetFoodRetrofit(gson: Gson) : Retrofit {
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BASIC
 
@@ -40,12 +41,37 @@ object AppModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Config.STREETFOOD_BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
+    @Singleton
+    @Provides
+    @GooglePlaceRetrofit
+    fun provideGooglePlaceRetrofit(
+        gson: Gson, googlePlaceInterceptor: GooglePlaceInterceptor): Retrofit {
+
+        val logger = HttpLoggingInterceptor()
+        logger.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(googlePlaceInterceptor)
+            .addInterceptor(logger)
+            .build()
+
+        return Retrofit.Builder()
+            .baseUrl(Config.GOOGLEPLACE_BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Provides
+    fun googlePlaceInterceptor(): GooglePlaceInterceptor {
+        return GooglePlaceInterceptor()
+    }
 
     @Provides
     fun provideGson(): Gson =
@@ -54,7 +80,12 @@ object AppModule {
             .create()
 
     @Provides
-    fun provideCharacterService(retrofit: Retrofit): StreetFoodService = retrofit.create(StreetFoodService::class.java)
+    fun provideStreetFoodService(@StreetFoodRetrofit retrofit: Retrofit): StreetFoodService =
+        retrofit.create(StreetFoodService::class.java)
+
+    @Provides
+    fun provideGooglePlaceService(@GooglePlaceRetrofit retrofit: Retrofit): GooglePlaceService =
+        retrofit.create(GooglePlaceService::class.java)
 
     @Provides
     @Singleton
@@ -88,6 +119,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: StreetFoodRemoteDataSource, regionDao: RegionDao, foodTruckDao: FoodTruckDao) =
-        StreetFoodRepository(remoteDataSource, regionDao, foodTruckDao)
+    fun provideRepository(
+        googlePlaceRemoteDataSource: GooglePlaceRemoteDataSource,
+        streetFoodRemoteDataSource: StreetFoodRemoteDataSource,
+        regionDao: RegionDao,
+        foodTruckDao: FoodTruckDao) : StreetFoodRepository {
+
+        return StreetFoodRepository(googlePlaceRemoteDataSource, streetFoodRemoteDataSource, regionDao, foodTruckDao)
+    }
+
 }
