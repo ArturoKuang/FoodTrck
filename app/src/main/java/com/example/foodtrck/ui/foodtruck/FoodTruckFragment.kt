@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckDetailsFragmentBinding
+import com.example.foodtrck.ui.ToolbarFragment
 import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.FoodTruckViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 const val ARG_FOODTRUCK = "arg_foodtruck"
 
 @AndroidEntryPoint
-class FoodTruckFragment: Fragment() {
+class FoodTruckFragment: ToolbarFragment() {
 
     private var binding: FoodtruckDetailsFragmentBinding by autoCleared()
     private val foodViewModel: FoodTruckViewModel by viewModels()
@@ -27,8 +28,9 @@ class FoodTruckFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FoodtruckDetailsFragmentBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -43,6 +45,8 @@ class FoodTruckFragment: Fragment() {
                 .load(foodTruck?.images?.header?.first())
                 .placeholder(R.drawable.ic_foodtruck_placeholder)
                 .into(binding.foodTruckDetailsImage)
+
+            setToolbar(foodTruck?.name ?: "", true)
 
             binding.foodTruckDetailsName.text = foodTruck?.name
             binding.foodTruckDetailsPhone.text = foodTruck?.phone

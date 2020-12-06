@@ -5,23 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckListBinding
+import com.example.foodtrck.ui.ToolbarFragment
 import com.example.foodtrck.utils.Resource
 import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.FoodTrucksViewModel
-import com.example.foodtrck.viewmodel.RegionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.text.DateFormat
+
 
 const val ARG_REGION_NAME = "arg_region_name"
 
 @AndroidEntryPoint
-class FoodTruckListFragment() : Fragment() {
+class FoodTruckListFragment() : ToolbarFragment() {
 
     private var binding: FoodtruckListBinding by autoCleared()
     private val viewModel: FoodTrucksViewModel by viewModels()
@@ -44,6 +43,7 @@ class FoodTruckListFragment() : Fragment() {
     ): View? {
         Timber.d("ARG_REGION_NAME $region")
         binding = FoodtruckListBinding.inflate(inflater, container, false)
+        setToolbar("Foodtrucks", true)
         return binding.root
     }
 

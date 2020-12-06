@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodtrck.databinding.RegionListBinding
+import com.example.foodtrck.ui.ToolbarFragment
 import com.example.foodtrck.utils.Resource
 import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.RegionListViewModel
@@ -19,7 +17,7 @@ import timber.log.Timber
 
 
 @AndroidEntryPoint
-class RegionListFragment : Fragment() {
+class RegionListFragment : ToolbarFragment() {
 
     private var binding: RegionListBinding by autoCleared()
     private val viewModel: RegionListViewModel by viewModels()
@@ -37,6 +35,7 @@ class RegionListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =  RegionListBinding.inflate(inflater, container, false)
+        setToolbar("City List", false)
         return binding.root
     }
 
