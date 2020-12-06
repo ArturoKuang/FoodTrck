@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodtrck.databinding.RegionListBinding
 import com.example.foodtrck.utils.Resource
@@ -15,6 +16,7 @@ import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.RegionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+
 
 @AndroidEntryPoint
 class RegionListFragment : Fragment() {
@@ -46,7 +48,9 @@ class RegionListFragment : Fragment() {
 
     private fun setupRecycleViewer() {
         adapter = RegionListAdapter(regionItemListener!!)
-        binding.regionRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.regionRv.layoutManager =
+            GridLayoutManager(requireContext(), 2)
+
         binding.regionRv.adapter = adapter
     }
 
@@ -54,13 +58,6 @@ class RegionListFragment : Fragment() {
         viewModel.regionList.observe(viewLifecycleOwner, { result ->
             when (result.status) {
                 Resource.Status.SUCCESS -> {
-
-//                    result.data?.filter { region ->
-//                        !(region.locations.isNullOrEmpty())
-//                    }?.let { list ->
-//                        adapter.updateData(list)
-//                    }
-
                     result.data?.let { list ->
                         adapter.updateData(list)
                     }

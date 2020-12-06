@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.Region
 import com.example.foodtrck.databinding.RegionListItemBinding
+import timber.log.Timber
 
 class RegionListAdapter(private var listener: RegionItemListener)
     : RecyclerView.Adapter<RegionListAdapter.RegionViewHolder>() {
@@ -54,15 +56,20 @@ class RegionListAdapter(private var listener: RegionItemListener)
         fun bind(item: Region) {
             this.region = item
             if(item.nameLong.isNullOrBlank()) {
-                itemBinding.titleRegion.text = item.name
+                itemBinding.titleRegionCity.text = item.name
             } else {
-                itemBinding.titleRegion.text = item.nameLong
+                val city = item.nameLong.substringBeforeLast(",")
+                val region = item.nameLong.substringAfterLast(",")
+
+                itemBinding.titleRegionCity.text = city
+                itemBinding.titleRegion.text = region
             }
 
+            Timber.d("PhotoUri: ${item.image?.photoUri}")
             Glide.with(itemBinding.root)
                 .load(item.image?.photoUri)
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .transform(FitCenter())
+                .transform(CenterCrop())
+                .placeholder(R.drawable.ic_region_placeholder)
                 .into(itemBinding.imageView)
         }
 
