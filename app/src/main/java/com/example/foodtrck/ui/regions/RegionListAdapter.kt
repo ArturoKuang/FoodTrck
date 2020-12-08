@@ -1,6 +1,8 @@
 package com.example.foodtrck.ui.regions
 
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -70,10 +72,10 @@ class RegionListAdapter(private var listener: RegionItemListener)
                 .load(item.image?.photoUri)
                 .transform(CenterCrop())
                 .placeholder(R.drawable.ic_region_placeholder)
-                .into(itemBinding.imageView)
+                .into(itemBinding.regionImage)
         }
 
-        override fun onClick(p0: View?) {
+        override fun onClick(view: View?) {
             listener.onClickRegion(region.id)
         }
     }
