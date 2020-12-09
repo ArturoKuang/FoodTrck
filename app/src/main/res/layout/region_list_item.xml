@@ -34,23 +34,22 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title_region_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="More Fonts..."
                 android:textColor="@color/white"
-                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.FoodTrck.Body3"
                 tools:text="Boston" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title_region"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
                 tools:text="MA" />
 
         </LinearLayout>

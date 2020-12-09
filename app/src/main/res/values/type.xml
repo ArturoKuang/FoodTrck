@@ -39,6 +39,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextAppearance.FoodTrck.Body3" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="TextAppearance.FoodTrck.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textColor">?attr/colorOnSurface</item>

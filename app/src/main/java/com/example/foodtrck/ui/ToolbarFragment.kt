@@ -9,6 +9,7 @@ open class ToolbarFragment : Fragment() {
 
     fun setToolbar(title: String, backButtonVisible: Boolean) {
         val toolbar: Toolbar = requireActivity().findViewById(R.id.toolbar)
+        val toolbarTitle: TextView = requireActivity().findViewById(R.id.toolbar_title)
 
         if (backButtonVisible) {
             toolbar.setNavigationIcon(R.drawable.ic_baseline_back_button)
@@ -17,6 +18,6 @@ open class ToolbarFragment : Fragment() {
             toolbar.navigationIcon = null
         }
 
-        toolbar.title = title
+        toolbarTitle.text = title
     }
 }
