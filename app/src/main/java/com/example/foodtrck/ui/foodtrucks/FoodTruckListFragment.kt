@@ -57,12 +57,12 @@ class FoodTruckListFragment() : ToolbarFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecycleViewer()
         subscribeUI()
-        val location = gpsTracker.getCurrentLocation()
-        Timber.d("CURRENT LOCATION: $location")
     }
 
     private fun setUpRecycleViewer() {
-        adapter = FoodTruckListAdapter(foodTruckItemListener!!)
+        val location = gpsTracker.getCurrentLocation()
+        Timber.d("CURRENT LOCATION: $location")
+        adapter = FoodTruckListAdapter(foodTruckItemListener!!, gpsTracker.getCurrentLocation())
         binding.foodTrucksRv.layoutManager = LinearLayoutManager(requireContext())
         binding.foodTrucksRv.adapter = adapter
     }

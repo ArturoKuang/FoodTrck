@@ -1,5 +1,7 @@
 package com.example.foodtrck.data.model
+import android.location.Location
 import com.example.foodtrck.utils.convertTrimmedDate
+import com.example.foodtrck.utils.createLocation
 import java.util.*
 
 data class ScheduleInfo(
@@ -21,6 +23,10 @@ data class ScheduleInfo(
     fun isOpen(): Boolean {
         val now = Date()
         return now.before(getEndDate())
+    }
+
+    fun getLocation(): Location {
+        return createLocation(latitude, longitude)
     }
 }
 

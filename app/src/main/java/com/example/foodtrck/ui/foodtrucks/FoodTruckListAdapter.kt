@@ -1,6 +1,7 @@
 package com.example.foodtrck.ui.foodtrucks
 
 import android.content.res.Resources
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
+import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.databinding.FoodtruckListItemBinding
+import com.example.foodtrck.utils.convertToMiles
+import com.example.foodtrck.utils.convertToRoundedMiles
+import timber.log.Timber
 import kotlin.collections.ArrayList
 
-class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
+class FoodTruckListAdapter(
+    private var listener: FoodTruckItemListener,
+    private val currentLocation: Location?)
     : RecyclerView.Adapter<FoodTruckListAdapter.FoodTruckListViewHolder>() {
 
     interface  FoodTruckItemListener {
@@ -29,7 +36,7 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
         val binding: FoodtruckListItemBinding =
             FoodtruckListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return  FoodTruckListViewHolder(binding, listener)
+        return  FoodTruckListViewHolder(binding, listener, currentLocation)
     }
 
     fun updateData(newList: List<FoodTruck>?) {
@@ -54,7 +61,8 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
 
     class FoodTruckListViewHolder(
         private val itemBinding: FoodtruckListItemBinding,
-        private val listener: FoodTruckItemListener)
+        private val listener: FoodTruckItemListener,
+        private val currentLocation: Location?)
         : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         private lateinit var foodTruck: FoodTruck
@@ -69,8 +77,18 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
 
             val open = "open"
             val closed = "closed"
-            if (foodTruck.getCurrentSchedule()?.isOpen() == true) {
+            val currentScheduleInfo: ScheduleInfo? = foodTruck.getCurrentSchedule()
+            if (currentScheduleInfo?.isOpen() == true) {
                 itemBinding.foodtruckOpen.text = open
+                itemBinding.foodtruckMilesAway.visibility = View.VISIBLE
+                val miles = distanceAwayFrom(currentScheduleInfo.getLocation())
+
+                if(miles != -1f) {
+                    val distance =  "Miles: $miles"
+                    Timber.d(distance)
+                    itemBinding.foodtruckMilesAway.text = distance
+                }
+
             } else {
                 itemBinding.foodtruckOpen.text = closed
             }
@@ -80,6 +98,16 @@ class FoodTruckListAdapter(private var listener: FoodTruckItemListener)
                 .placeholder(R.drawable.ic_foodtruck_placeholder)
                 .transform(FitCenter())
                 .into(itemBinding.foodtruckImage)
+        }
+
+        private fun distanceAwayFrom(location: Location): Float {
+            if(currentLocation == null) {
+                return -1f
+            }
+
+            var distance = currentLocation.distanceTo(location)
+            distance = location.convertToRoundedMiles(distance)
+            return distance
         }
 
         override fun onClick(v: View?) {
