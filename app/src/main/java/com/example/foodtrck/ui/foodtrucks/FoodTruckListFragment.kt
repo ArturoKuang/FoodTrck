@@ -1,6 +1,8 @@
 package com.example.foodtrck.ui.foodtrucks
 
 import android.content.Context
+import android.location.Location
+import android.location.LocationListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckListBinding
 import com.example.foodtrck.ui.ToolbarFragment
+import com.example.foodtrck.utils.GpsTracker
 import com.example.foodtrck.utils.Resource
 import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.FoodTrucksViewModel
@@ -24,8 +27,10 @@ class FoodTruckListFragment() : ToolbarFragment() {
 
     private var binding: FoodtruckListBinding by autoCleared()
     private val viewModel: FoodTrucksViewModel by viewModels()
+    private lateinit var gpsTracker: GpsTracker
     private lateinit var adapter: FoodTruckListAdapter
     private var foodTruckItemListener: FoodTruckListAdapter.FoodTruckItemListener? = null
+
 
     val region: String by lazy {
         arguments?.getString(ARG_REGION_NAME, "") ?: ""
@@ -33,6 +38,7 @@ class FoodTruckListFragment() : ToolbarFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        gpsTracker = GpsTracker(context)
         foodTruckItemListener = context as FoodTruckListAdapter.FoodTruckItemListener
     }
 
@@ -51,6 +57,8 @@ class FoodTruckListFragment() : ToolbarFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecycleViewer()
         subscribeUI()
+        val location = gpsTracker.getCurrentLocation()
+        Timber.d("CURRENT LOCATION: $location")
     }
 
     private fun setUpRecycleViewer() {
@@ -66,20 +74,6 @@ class FoodTruckListFragment() : ToolbarFragment() {
                     result.data?.let { foodTruckResponse ->
                         val list: List<FoodTruck>? =
                             foodTruckResponse.vendors?.values?.toList()
-
-//                        ///DEBUG
-//                        val df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL)
-//                        val sb = StringBuilder(" FoodTrucks Opened Today: \n")
-//                        if (list != null) {
-//                            for (trucks in list) {
-//                                val schedule = trucks.getCurrentSchedule() ?: continue
-//                                val startDate = df.format(schedule.getStartDate())
-//                                val endDate = df.format(schedule.getEndDate())
-//                                sb.append("Name: ${trucks.name} Open: $startDate, Close: $endDate \n")
-//                            }
-//                        }
-//                        sb.append("-----------------------------------------\n")
-//                        Timber.d(sb.toString())
 
                         adapter.updateData(list)
                     }

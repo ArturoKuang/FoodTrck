@@ -10,7 +10,6 @@ import com.example.foodtrck.data.model.Region
 import com.example.foodtrck.data.remote.GooglePlaceRemoteDataSource
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
 import com.example.foodtrck.utils.Resource
-import com.example.foodtrck.utils.performGetFlowOperation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -25,12 +24,6 @@ class StreetFoodRepository @Inject constructor(
     private val foodTruckDao: FoodTruckDao
 ) {
     suspend fun fetchRegions(): Flow<Resource<List<Region>>?> {
-//        return performGetFlowOperation (
-//            networkCall = { streetFoodRemoteDataSource.getRegions() },
-//            dataBaseQuery = { fetchRegionsCache() },
-//            saveCallResult = { saveToRegionsDatabase(it) }
-//        )
-
         return flow {
             emit(fetchRegionsCache())
 
