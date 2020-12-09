@@ -9,7 +9,7 @@
     android:layout_marginEnd="16dp"
     android:clickable="true"
     android:focusable="true"
-    card_view:cardCornerRadius="8dp">
+    card_view:cardCornerRadius="12dp">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -39,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="More Fonts..."
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 tools:text="Boston" />

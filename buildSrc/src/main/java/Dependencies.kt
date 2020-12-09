@@ -5,6 +5,7 @@ object Versions {
         const val navigation = "2.3.1"
         const val constraintLayout = "2.0.4"
         const val androidArcComponents = "2.2.0"
+        const val font = "28.0.0"
     }
 
     object Kotlin {
@@ -36,7 +37,8 @@ object Dependencies {
         "androidx.navigation:navigation-ui:${Versions.SupportAndroidLibs.navigation}",
         "androidx.navigation:navigation-fragment-ktx:${Versions.SupportAndroidLibs.navigation}",
         "androidx.navigation:navigation-ui-ktx:${Versions.SupportAndroidLibs.navigation}",
-        "com.android.support.constraint:constraint-layout:${Versions.SupportAndroidLibs.constraintLayout}"
+        "com.android.support.constraint:constraint-layout:${Versions.SupportAndroidLibs.constraintLayout}",
+        "com.android.support:support-compat:${Versions.SupportAndroidLibs.font}"
     )
     val androidArchComponents = arrayOf(
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.SupportAndroidLibs.androidArcComponents}",
