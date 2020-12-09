@@ -25,10 +25,14 @@ class StreetFoodRepository @Inject constructor(
 ) {
     suspend fun fetchRegions(): Flow<Resource<List<Region>>?> {
         return flow {
-            emit(fetchRegionsCache())
+            val regionsCache = fetchRegionsCache()
+            emit(regionsCache)
+
+            if(regionsCache != null) {
+                return@flow
+            }
 
             emit(Resource.loading())
-
             val result = streetFoodRemoteDataSource.getRegions()
 
             if(result.status == Resource.Status.SUCCESS) {
