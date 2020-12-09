@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_FoodTruckList"
-        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:icon="@drawable/ic_baseline_location_city_24"
         android:title="@string/title_FoodTruckNav" />
 
     <item

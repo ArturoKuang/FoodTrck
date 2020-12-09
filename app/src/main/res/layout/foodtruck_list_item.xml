@@ -36,10 +36,10 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginStart="16dp"
-            android:contentDescription="TODO"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_background" />
+            android:contentDescription="TODO"
+            tools:src="@drawable/ic_foodtruck_placeholder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

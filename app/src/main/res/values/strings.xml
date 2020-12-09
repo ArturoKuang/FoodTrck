@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">FoodTrck</string>
-    <string name="title_FoodTruckNav">List</string>
-    <string name="title_MapNav">Map</string>
+    <string name="title_FoodTruckNav">Cities</string>
+    <string name="title_MapNav">Near Me</string>
     <string name="title_RegionsList">Available Regions</string>
 </resources>

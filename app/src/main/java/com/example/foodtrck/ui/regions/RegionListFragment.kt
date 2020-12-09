@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.foodtrck.R
 import com.example.foodtrck.databinding.RegionListBinding
+import com.example.foodtrck.ui.SpaceItemDecoration
 import com.example.foodtrck.ui.ToolbarFragment
 import com.example.foodtrck.utils.Resource
 import com.example.foodtrck.utils.autoCleared
@@ -50,7 +52,10 @@ class RegionListFragment : ToolbarFragment() {
         binding.regionRv.layoutManager =
             GridLayoutManager(requireContext(), 2)
 
+        val spacing =  resources.getDimensionPixelSize(R.dimen.keyline_2)
+        val itemDecoration = SpaceItemDecoration(spacing)
         binding.regionRv.adapter = adapter
+        binding.regionRv.addItemDecoration(itemDecoration)
     }
 
     private fun subscribeUI() {
