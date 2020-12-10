@@ -5,6 +5,7 @@ import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -81,8 +82,12 @@ class FoodTruckListAdapter(
             val open = "open"
             val closed = "closed"
             val currentScheduleInfo: ScheduleInfo? = foodTruck.getCurrentSchedule()
+            val primaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.red_500)
+            val secondaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.blue_grey_500)
+
             if (currentScheduleInfo?.isOpen() == true) {
                 itemBinding.foodtruckOpen.text = open
+                itemBinding.foodtruckOpen.setTextColor(primaryColor)
                 itemBinding.foodtruckMilesAway.visibility = View.VISIBLE
                 val miles = distanceAwayFrom(currentScheduleInfo.getLocation())
 
@@ -90,11 +95,18 @@ class FoodTruckListAdapter(
                     val distance =  "Miles: $miles"
                     Timber.d(distance)
                     itemBinding.foodtruckMilesAway.text = distance
-                    itemBinding.foodtruckMilesAway.setTextColor(ContextCompat.getColor(itemBinding.root.context, R.color.red_500))
+                    itemBinding.foodtruckMilesAway.setTextColor(primaryColor)
                 }
 
             } else {
                 itemBinding.foodtruckOpen.text = closed
+                itemBinding.foodtruckOpen.setTextColor(secondaryColor)
+            }
+
+            if(item.images?.header?.first() != null || item.images?.logo_small != null) {
+                itemBinding.foodtruckImage.scaleType = ImageView.ScaleType.FIT_XY
+            } else {
+                itemBinding.foodtruckImage.scaleType = ImageView.ScaleType.FIT_CENTER
             }
 
             Glide.with(itemBinding.root)

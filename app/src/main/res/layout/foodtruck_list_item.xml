@@ -21,7 +21,6 @@
             android:layout_height="125dp"
             android:layout_alignParentTop="true"
             android:background="@drawable/imageborder"
-            android:scaleType="fitXY"
             android:contentDescription="TODO"
             tools:src="@drawable/ic_foodtruck_placeholder" />
 
