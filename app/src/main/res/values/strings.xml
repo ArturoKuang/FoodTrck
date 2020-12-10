@@ -6,4 +6,5 @@
     <string name="info_tab">Info</string>
     <string name="schedule_tab">Schedule</string>
     <string name="text_contact">Contact</string>
+    <string name="text_schedule">Schedule</string>
 </resources>
