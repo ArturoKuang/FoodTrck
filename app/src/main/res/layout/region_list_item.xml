@@ -31,7 +31,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
+            <TextView
                 android:id="@+id/title_region_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:textAppearance="@style/TextAppearance.FoodTrck.Body3"
                 tools:text="Boston" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <TextView
                 android:id="@+id/title_region"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

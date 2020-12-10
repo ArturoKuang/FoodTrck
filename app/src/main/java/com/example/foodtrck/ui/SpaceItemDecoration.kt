@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SpaceItemDecoration(
     private val left: Int,
-    private val right: Int,
     private val top: Int,
+    private val right: Int,
     private val bottom: Int)
     : RecyclerView.ItemDecoration() {
 

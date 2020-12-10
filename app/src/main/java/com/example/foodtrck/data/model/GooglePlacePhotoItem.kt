@@ -3,8 +3,8 @@ package com.example.foodtrck.data.model
 import android.net.Uri
 import com.example.foodtrck.BuildConfig
 
-private const val WIDTH = "400"
-private const val HEIGHT = "400"
+private const val WIDTH = "1000"
+private const val HEIGHT = "1000"
 
 data class GooglePlacePhotoItem(
     val photo_reference: String

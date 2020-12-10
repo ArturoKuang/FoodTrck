@@ -5,6 +5,7 @@ import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
@@ -14,6 +15,7 @@ import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.databinding.FoodtruckListItemBinding
 import com.example.foodtrck.utils.convertToMiles
 import com.example.foodtrck.utils.convertToRoundedMiles
+import kotlinx.android.synthetic.main.foodtruck_list_item.view.*
 import timber.log.Timber
 import kotlin.collections.ArrayList
 
@@ -74,6 +76,7 @@ class FoodTruckListAdapter(
         fun bind(item: FoodTruck) {
             foodTruck = item
             itemBinding.foodtruckName.text = foodTruck.name
+            itemBinding.foodtruckRating.text = foodTruck.rating.toString()
 
             val open = "open"
             val closed = "closed"
@@ -87,6 +90,7 @@ class FoodTruckListAdapter(
                     val distance =  "Miles: $miles"
                     Timber.d(distance)
                     itemBinding.foodtruckMilesAway.text = distance
+                    itemBinding.foodtruckMilesAway.setTextColor(ContextCompat.getColor(itemBinding.root.context, R.color.red_500))
                 }
 
             } else {
@@ -96,7 +100,6 @@ class FoodTruckListAdapter(
             Glide.with(itemBinding.root)
                 .load(item.images?.header?.first() ?: item.images?.logo_small ?: R.drawable.ic_foodtruck_placeholder)
                 .placeholder(R.drawable.ic_foodtruck_placeholder)
-                .transform(FitCenter())
                 .into(itemBinding.foodtruckImage)
         }
 

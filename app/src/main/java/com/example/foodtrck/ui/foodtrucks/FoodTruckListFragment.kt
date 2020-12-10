@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckListBinding
+import com.example.foodtrck.ui.SpaceItemDecoration
 import com.example.foodtrck.ui.ToolbarFragment
 import com.example.foodtrck.utils.GpsTracker
 import com.example.foodtrck.utils.Resource
@@ -21,7 +23,6 @@ import timber.log.Timber
 
 
 const val ARG_REGION_NAME = "arg_region_name"
-
 @AndroidEntryPoint
 class FoodTruckListFragment() : ToolbarFragment() {
 
@@ -63,8 +64,15 @@ class FoodTruckListFragment() : ToolbarFragment() {
         val location = gpsTracker.getCurrentLocation()
         Timber.d("CURRENT LOCATION: $location")
         adapter = FoodTruckListAdapter(foodTruckItemListener!!, gpsTracker.getCurrentLocation())
+        val bottomTopSpacing = resources.getDimensionPixelSize(R.dimen.keyline_3)
+        val leftRightSpacing = resources.getDimensionPixelSize(R.dimen.keyline_5)
+
+        val itemDecoration =
+            SpaceItemDecoration(leftRightSpacing, bottomTopSpacing, leftRightSpacing, bottomTopSpacing)
+
         binding.foodTrucksRv.layoutManager = LinearLayoutManager(requireContext())
         binding.foodTrucksRv.adapter = adapter
+        binding.foodTrucksRv.addItemDecoration(itemDecoration)
     }
 
     private fun subscribeUI() {
