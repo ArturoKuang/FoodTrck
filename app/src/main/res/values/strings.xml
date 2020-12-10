@@ -3,4 +3,7 @@
     <string name="title_FoodTruckNav">Cities</string>
     <string name="title_MapNav">Near Me</string>
     <string name="title_RegionsList">Available Regions</string>
+    <string name="info_tab">Info</string>
+    <string name="schedule_tab">Schedule</string>
+    <string name="text_contact">Contact</string>
 </resources>

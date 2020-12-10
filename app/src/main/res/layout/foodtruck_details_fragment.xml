@@ -1,42 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/food_truck_details_image"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:scaleType="fitXY"
+            android:contentDescription="TODO"
+            tools:src="@drawable/ic_foodtruck_placeholder" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:background="@drawable/scrim_gradient_light" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/keyline_2">
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FoodTrck.Headline6"
+                android:textStyle="bold"
+                android:textColor="@color/white_50_alpha_060"
+                android:text="123"
+                tools:text="123" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/keyline_0"
+                android:src="@drawable/ic_cards_heart"
+                app:tint="@color/red_500" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/food_truck_details_image"
-        tools:src="@drawable/ic_foodtruck_placeholder">
-    </ImageView>
+        android:layout_below="@+id/header"
+        android:background="@android:color/transparent"
+        app:tabIndicatorColor="?colorPrimary"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="?colorPrimary"
+        app:tabTextColor="?colorOnSurface">
 
-    <TextView
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/info_tab" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/schedule_tab" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/food_truck_details_name"
-        tools:text="Name">
-    </TextView>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_layout"
+        android:layout_margin="@dimen/keyline_12dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/food_truck_details_phone"
-        tools:text="Phone: (617)-321-3290">
-    </TextView>
+        <TextView
+            android:id="@+id/food_truck_details_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_contact"
+            android:textAppearance="@style/TextAppearance.FoodTrck.HeadlineBody" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/food_truck_details_rating"
-        tools:text="Rating: 10 stars">
-    </TextView>
+        <TextView
+            android:id="@+id/food_truck_details_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_truck_details_contact"
+            android:layout_marginTop="@dimen/keyline_2"
+            android:textColor="?colorSecondary"
+            tools:text="Boston" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/food_truck_details_description"
-        tools:text="Description: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy">
-    </TextView>
+        <TextView
+            android:id="@+id/food_truck_details_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_truck_details_location"
+            android:textColor="?colorSecondary"
+            tools:text="Phone: (617)-321-3290" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/food_truck_details_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_truck_details_phone"
+            android:textColor="?colorSecondary"
+            tools:text="bonme@gmail.com" />
+
+        <TextView
+            android:id="@+id/food_truck_details_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_truck_details_email"
+            android:textColor="?colorSecondary"
+            tools:text="bonme.com" />
+
+        <TextView
+            android:id="@+id/food_truck_details_description_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_truck_details_website"
+            android:layout_marginTop="@dimen/keyline_4"
+            android:text="Description"
+            android:textAppearance="@style/TextAppearance.FoodTrck.HeadlineBody" />
+
+        <TextView
+            android:id="@+id/food_truck_details_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_truck_details_description_title"
+            android:layout_marginTop="@dimen/keyline_2"
+            tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

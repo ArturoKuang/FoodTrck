@@ -50,7 +50,10 @@ class FoodTruckListFragment() : ToolbarFragment() {
     ): View? {
         Timber.d("ARG_REGION_NAME $region")
         binding = FoodtruckListBinding.inflate(inflater, container, false)
-        setToolbar("Foodtrucks", true)
+        val regionName = region
+        regionName.first().toUpperCase()
+
+        setToolbar(regionName, true)
         return binding.root
     }
 

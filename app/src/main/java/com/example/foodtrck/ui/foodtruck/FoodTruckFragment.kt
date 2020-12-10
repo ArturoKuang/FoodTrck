@@ -48,9 +48,9 @@ class FoodTruckFragment: ToolbarFragment() {
 
             setToolbar(foodTruck?.name ?: "", true)
 
-            binding.foodTruckDetailsName.text = foodTruck?.name
             binding.foodTruckDetailsPhone.text = foodTruck?.phone
-            binding.foodTruckDetailsRating.text = foodTruck?.rating.toString()
+            binding.foodTruckDetailsWebsite.text = foodTruck?.url
+            //binding.foodTruckDetailsRating.text = foodTruck?.rating.toString()
             binding.foodTruckDetailsDescription.text = foodTruck?.description
         })
     }

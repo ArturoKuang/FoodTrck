@@ -26,6 +26,12 @@
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
+    <style name="TextAppearance.FoodTrck.HeadlineBody" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/allerta</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/textSize_3</item>
+    </style>
+
     <style name="TextAppearance.FoodTrck.Body1" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textSize">16sp</item>

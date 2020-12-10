@@ -68,17 +68,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/foodtruck_open"
             android:layout_marginTop="@dimen/keyline_0"
-            android:paddingLeft="@dimen/keyline_0"
+            android:paddingStart="@dimen/keyline_0"
             android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
             tools:text="1234" />
 
         <ImageView
             android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_cards_heart"
             android:layout_toEndOf="@id/foodtruck_rating"
             android:layout_alignTop="@id/foodtruck_rating"
-            android:layout_marginLeft="@dimen/keyline_1"
+            android:layout_alignBottom="@id/foodtruck_rating"
+            android:layout_marginStart="@dimen/keyline_1"
             app:tint="?attr/colorPrimary" />
 
         </RelativeLayout>
