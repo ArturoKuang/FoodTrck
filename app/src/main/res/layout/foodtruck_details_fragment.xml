@@ -14,8 +14,8 @@
             android:id="@+id/food_truck_details_image"
             android:layout_width="match_parent"
             android:layout_height="210dp"
-            android:scaleType="fitXY"
             android:contentDescription="TODO"
+            android:scaleType="fitXY"
             tools:src="@drawable/ic_foodtruck_placeholder" />
 
         <View
@@ -52,8 +52,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/header"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -67,35 +67,112 @@
                 android:text="@string/text_contact"
                 android:textAppearance="@style/TextAppearance.FoodTrck.HeadlineBody" />
 
-            <TextView
-                android:id="@+id/food_truck_details_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/food_truck_details_contact"
-                android:textColor="?colorSecondary"
-                tools:text="Phone: (617)-321-3290" />
 
-            <TextView
-                android:id="@+id/food_truck_details_email"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/phone_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/food_truck_details_phone"
-                android:textColor="?colorSecondary"
-                tools:text="bonme@gmail.com" />
+                android:layout_below="@+id/food_truck_details_contact">
 
-            <TextView
-                android:id="@+id/food_truck_details_website"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/icon_phone"
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/keyline_2"
+                    android:src="@drawable/ic_baseline_phone_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:tint="@color/blue_grey_light" />
+
+                <TextView
+                    android:id="@+id/food_truck_details_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/keyline_1"
+                    android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
+                    android:textColor="?colorSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_phone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:text="Phone: (617)-321-3290" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/email_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/food_truck_details_email"
-                android:textColor="?colorSecondary"
-                tools:text="bonme.com" />
+                android:layout_below="@+id/phone_container">
+
+                <ImageView
+                    android:id="@+id/icon_email"
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/keyline_2"
+                    android:src="@drawable/ic_baseline_email_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:tint="@color/blue_grey_light" />
+
+                <TextView
+                    android:id="@+id/food_truck_details_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/keyline_1"
+                    android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
+                    android:textColor="?colorSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_email"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:text="BomeMe@truck.com" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/website_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/email_container">
+
+                <ImageView
+                    android:id="@+id/icon_website"
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/keyline_2"
+                    android:src="@drawable/ic_earth"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:tint="@color/blue_grey_light" />
+
+                <TextView
+                    android:id="@+id/food_truck_details_website"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/keyline_1"
+                    android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
+                    android:textColor="?colorSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_website"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:text="BonMe.com" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/food_truck_details_description_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/food_truck_details_website"
+                android:layout_below="@+id/website_container"
                 android:layout_marginTop="@dimen/keyline_4"
                 android:text="@string/text_description"
                 android:textAppearance="@style/TextAppearance.FoodTrck.HeadlineBody" />
@@ -105,6 +182,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/food_truck_details_description_title"
+                android:textAppearance="@style/TextAppearance.FoodTrck.Subtitle1"
+                android:textSize="@dimen/textSize_1"
                 android:layout_marginTop="@dimen/keyline_2"
                 tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy" />
 

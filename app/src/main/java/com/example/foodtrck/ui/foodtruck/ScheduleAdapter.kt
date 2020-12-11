@@ -69,6 +69,9 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
                     MarkerOptions()
                         .position(location))
 
+                val options = GoogleMapOptions()
+                    .liteMode(true)
+
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
             }
         }
