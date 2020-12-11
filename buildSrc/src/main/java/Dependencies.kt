@@ -26,6 +26,7 @@ object Versions {
     object Google {
         const val hilt = "2.28.1-alpha"
         const val hilt_platform = "1.0.0-alpha02"
+        const val maps = "17.0.0"
     }
 }
 
@@ -55,7 +56,8 @@ object Dependencies {
     )
     val google = arrayOf(
         "com.google.dagger:hilt-android:${Versions.Google.hilt}",
-        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.Google.hilt_platform}"
+        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.Google.hilt_platform}",
+        "com.google.android.gms:play-services-maps:${Versions.Google.maps}"
     )
     val libraries = arrayOf(
         "com.github.bumptech.glide:glide:${Versions.Libraries.glide}",

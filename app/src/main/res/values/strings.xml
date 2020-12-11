@@ -7,4 +7,5 @@
     <string name="schedule_tab">Schedule</string>
     <string name="text_contact">Contact</string>
     <string name="text_schedule">Schedule</string>
+    <string name="text_description">Description</string>
 </resources>

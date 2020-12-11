@@ -1,5 +1,6 @@
 package com.example.foodtrck.utils
 
+import com.example.foodtrck.data.model.ScheduleInfo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*
@@ -14,10 +15,10 @@ inline fun<reified T> convertJsonToObj(json: String?): T {
     return gson.fromJson(json, T::class.java)
 }
 
-inline fun<reified T> convertJsonToList(json: String?): List<T>? {
+inline fun<reified T> convertJsonToList(json: String?): List<T> {
     val gson = Gson()
     if(json.isNullOrBlank()) {
-        return emptyList<T>()
+        return emptyList()
     }
 
     return gson.fromJson(json, object : TypeToken<List<T>>() {}.type)

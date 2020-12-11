@@ -13,7 +13,7 @@ class GooglePlaceInterceptor: Interceptor {
         val originalRequest = chain.request()
 
         val newUrl: HttpUrl = originalRequest.url.newBuilder()
-            .addQueryParameter("key", BuildConfig.GOOGLE_PLACE_KEY)
+            .addQueryParameter("key", BuildConfig.GOOGLE_MAPS_API_KEY)
             .addQueryParameter("radius", radius)
             .build()
 

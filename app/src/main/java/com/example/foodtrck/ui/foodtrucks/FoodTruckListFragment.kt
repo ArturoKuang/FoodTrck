@@ -20,6 +20,7 @@ import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.FoodTrucksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 
 
 const val ARG_REGION_NAME = "arg_region_name"
@@ -50,8 +51,7 @@ class FoodTruckListFragment() : ToolbarFragment() {
     ): View? {
         Timber.d("ARG_REGION_NAME $region")
         binding = FoodtruckListBinding.inflate(inflater, container, false)
-        val regionName = region
-        regionName.first().toUpperCase()
+        var regionName = region.capitalize(Locale.ROOT)
 
         setToolbar(regionName, true)
         return binding.root

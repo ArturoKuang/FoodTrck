@@ -16,7 +16,7 @@ data class GooglePlacePhotoItem(
                 .appendQueryParameter("maxwidth", WIDTH)
                 .appendQueryParameter("maxheight", HEIGHT)
                 .appendQueryParameter("photoreference", photo_reference)
-                .appendQueryParameter("key", BuildConfig.GOOGLE_PLACE_KEY)
+                .appendQueryParameter("key", BuildConfig.GOOGLE_MAPS_API_KEY)
                 .build()
         }
 }

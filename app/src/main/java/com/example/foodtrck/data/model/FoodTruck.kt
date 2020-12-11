@@ -14,9 +14,13 @@ data class FoodTruck(
     val name: String,
     val url: String?,
     val phone: String?,
+    val email: String?,
     val description: String?,
     val description_short: String?,
     val images: Images? = null,
+    val twitter: String?,
+    val facebook: String?,
+    val instagram: String?,
     @SerializedName("open")
     val schedule: List<ScheduleInfo>
 ) {

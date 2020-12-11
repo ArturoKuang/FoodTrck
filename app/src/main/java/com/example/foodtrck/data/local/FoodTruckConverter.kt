@@ -6,6 +6,8 @@ import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.utils.convertJsonToList
 import com.example.foodtrck.utils.convertJsonToObj
 import com.example.foodtrck.utils.convertToJson
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class FoodTruckConverter {
     @TypeConverter
@@ -19,8 +21,14 @@ class FoodTruckConverter {
     }
 
     @TypeConverter
-    fun fromScheduleInfoListString(value: String?): List<ScheduleInfo>? {
-        return convertJsonToList(value)
+    fun fromScheduleInfoListString(value: String?): List<ScheduleInfo> {
+        val gson = Gson()
+        if(value.isNullOrBlank()) {
+            return emptyList()
+        }
+
+       val test: List<ScheduleInfo> = gson.fromJson(value, object : TypeToken<List<ScheduleInfo>>() {}.type)
+        return test
     }
 
     @TypeConverter
