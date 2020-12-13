@@ -5,12 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.databinding.ScheduleListItemBinding
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMapOptions
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import timber.log.Timber
 import java.text.DateFormat
 
 
@@ -44,9 +42,39 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
     class ScheduleViewHolder(
         private val itemBinding: ScheduleListItemBinding,
         private val fragment: FoodTruckFragment
-    ) : RecyclerView.ViewHolder(itemBinding.root) {
+    ) : RecyclerView.ViewHolder(itemBinding.root), OnMapReadyCallback {
 
         private lateinit var schedule: ScheduleInfo
+        private val mapView = itemBinding.scheduleMap
+        private lateinit var map: GoogleMap
+        private lateinit var location: LatLng
+
+
+        init {
+            with(mapView) {
+                onCreate(null)
+
+                getMapAsync(this@ScheduleViewHolder)
+            }
+        }
+
+        private fun setMapLocation() {
+            if(!::map.isInitialized) return
+            with(map) {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f))
+                addMarker(MarkerOptions().position(location))
+                mapType = GoogleMap.MAP_TYPE_NORMAL
+                setOnMapClickListener {
+                    Timber.d("CLICKED ON MAP")
+                }
+            }
+        }
+
+        override fun onMapReady(googleMap: GoogleMap?) {
+            MapsInitializer.initialize(fragment.requireContext())
+            map = googleMap ?: return
+            setMapLocation()
+        }
 
         fun bind(item: ScheduleInfo) {
             schedule = item
@@ -59,20 +87,19 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
             val endTime = timeFormat.format(schedule.getEndDate())
 
             val startEndTime = "$startTime \u2014 $endTime"
-            val location = LatLng(schedule.getLocation().latitude, schedule.getLocation().longitude)
 
             itemBinding.scheduleDate.text = date
             itemBinding.scheduleTime.text = startEndTime
             itemBinding.scheduleLocationName.text = schedule.display
-            itemBinding.scheduleMap.getMapAsync { googleMap ->
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(location))
 
-                val options = GoogleMapOptions()
-                    .liteMode(true)
+            location = LatLng(schedule.getLocation().latitude, schedule.getLocation().longitude)
+            setMapLocation()
+        }
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        fun clearView() {
+            with(map) {
+                clear()
+                mapType = GoogleMap.MAP_TYPE_NONE
             }
         }
     }

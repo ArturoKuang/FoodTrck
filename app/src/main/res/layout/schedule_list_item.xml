@@ -49,7 +49,10 @@
         <com.google.android.gms.maps.MapView
             android:id="@+id/schedule_map"
             android:layout_width="match_parent"
-            android:layout_height="125dp"/>
+            android:layout_height="125dp"
+            map:cameraZoom="13"
+            map:mapType="normal"
+            map:liteMode="true"/>
 
     </LinearLayout>
 
