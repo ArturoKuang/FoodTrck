@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
@@ -26,6 +27,11 @@ class FoodTruckFragment: ToolbarFragment() {
     private var binding: FoodtruckDetailsFragmentBinding by autoCleared()
     private val foodViewModel: FoodTruckViewModel by viewModels()
     private lateinit var scheduleAdapter: ScheduleAdapter
+
+    private val recycleListener = RecyclerView.RecyclerListener { holder ->
+        val mapHolder = holder as ScheduleAdapter.ScheduleViewHolder
+        mapHolder.clearView()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,9 +73,12 @@ class FoodTruckFragment: ToolbarFragment() {
         val spacing = resources.getDimensionPixelSize(R.dimen.keyline_2)
         val itemDecoration = SpaceItemDecoration(spacing)
 
-        binding.scheduleRv.layoutManager = LinearLayoutManager(requireContext())
-        binding.scheduleRv.adapter = scheduleAdapter
-        binding.scheduleRv.addItemDecoration(itemDecoration)
+        binding.scheduleRv.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = scheduleAdapter
+            addItemDecoration(itemDecoration)
+            setRecyclerListener(recycleListener)
+        }
     }
 
     companion object {

@@ -56,8 +56,7 @@ object Dependencies {
     )
     val google = arrayOf(
         "com.google.dagger:hilt-android:${Versions.Google.hilt}",
-        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.Google.hilt_platform}",
-        "com.google.android.gms:play-services-maps:${Versions.Google.maps}"
+        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.Google.hilt_platform}"
     )
     val libraries = arrayOf(
         "com.github.bumptech.glide:glide:${Versions.Libraries.glide}",

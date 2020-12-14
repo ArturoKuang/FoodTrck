@@ -1,7 +1,10 @@
 package com.example.foodtrck.ui.foodtruck
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.databinding.ScheduleListItemBinding
@@ -58,6 +61,12 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
             }
         }
 
+        override fun onMapReady(googleMap: GoogleMap?) {
+            MapsInitializer.initialize(fragment.requireContext())
+            map = googleMap ?: return
+            setMapLocation()
+        }
+
         private fun setMapLocation() {
             if(!::map.isInitialized) return
             with(map) {
@@ -67,13 +76,19 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
                 setOnMapClickListener {
                     Timber.d("CLICKED ON MAP")
                 }
-            }
-        }
 
-        override fun onMapReady(googleMap: GoogleMap?) {
-            MapsInitializer.initialize(fragment.requireContext())
-            map = googleMap ?: return
-            setMapLocation()
+                if (ActivityCompat.checkSelfPermission(
+                        fragment.requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        fragment.requireContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    isMyLocationEnabled = true
+                }
+
+            }
         }
 
         fun bind(item: ScheduleInfo) {
