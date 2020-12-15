@@ -82,6 +82,8 @@ class FoodTruckFragment: ToolbarFragment() {
     }
 
     companion object {
+        const val TAG = "FOODTRUCK_FRAGMENT"
+
         fun newInstance(foodTruckID: String): FoodTruckFragment {
             val args = Bundle().apply {
                 putSerializable(ARG_FOODTRUCK, foodTruckID)

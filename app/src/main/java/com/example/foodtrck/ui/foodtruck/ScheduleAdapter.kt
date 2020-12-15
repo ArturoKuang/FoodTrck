@@ -57,7 +57,6 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) :
         init {
             with(mapView) {
                 onCreate(null)
-
                 getMapAsync(this@ScheduleViewHolder)
             }
         }

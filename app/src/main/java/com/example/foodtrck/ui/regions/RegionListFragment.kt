@@ -35,8 +35,8 @@ class RegionListFragment : ToolbarFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding =  RegionListBinding.inflate(inflater, container, false)
+    ): View {
+        binding = RegionListBinding.inflate(inflater, container, false)
         setToolbar("City List", false)
         return binding.root
     }
@@ -74,5 +74,13 @@ class RegionListFragment : ToolbarFragment() {
                     binding.progressBar.visibility = View.VISIBLE
             }
         })
+    }
+
+    companion object {
+        const val TAG = "REGION_FRAGMENT"
+
+        fun newInstance(): RegionListFragment {
+            return RegionListFragment()
+        }
     }
 }
