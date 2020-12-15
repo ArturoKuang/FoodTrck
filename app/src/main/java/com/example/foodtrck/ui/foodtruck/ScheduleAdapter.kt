@@ -15,13 +15,14 @@ import timber.log.Timber
 import java.text.DateFormat
 
 
-class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+class ScheduleAdapter(private val fragment: FoodTruckFragment) :
+    RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
     private val schedules = ArrayList<ScheduleInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         val itemBinding: ScheduleListItemBinding =
-                ScheduleListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ScheduleListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ScheduleViewHolder(itemBinding, fragment)
     }
@@ -33,7 +34,7 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
     override fun getItemCount(): Int = schedules.size
 
     fun updateData(newList: List<ScheduleInfo>?) {
-        if(newList == null) {
+        if (newList == null) {
             return
         }
 
@@ -68,26 +69,11 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
         }
 
         private fun setMapLocation() {
-            if(!::map.isInitialized) return
+            if (!::map.isInitialized) return
             with(map) {
                 moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f))
                 addMarker(MarkerOptions().position(location))
                 mapType = GoogleMap.MAP_TYPE_NORMAL
-                setOnMapClickListener {
-                    Timber.d("CLICKED ON MAP")
-                }
-
-                if (ActivityCompat.checkSelfPermission(
-                        fragment.requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        fragment.requireContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    isMyLocationEnabled = true
-                }
-
             }
         }
 
@@ -117,6 +103,6 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) : RecyclerView.Ad
                 mapType = GoogleMap.MAP_TYPE_NONE
             }
         }
-    }
 
+    }
 }

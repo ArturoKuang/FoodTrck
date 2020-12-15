@@ -38,7 +38,7 @@ object Dependencies {
         "androidx.navigation:navigation-ui:${Versions.SupportAndroidLibs.navigation}",
         "androidx.navigation:navigation-fragment-ktx:${Versions.SupportAndroidLibs.navigation}",
         "androidx.navigation:navigation-ui-ktx:${Versions.SupportAndroidLibs.navigation}",
-        "com.android.support.constraint:constraint-layout:${Versions.SupportAndroidLibs.constraintLayout}",
+        "androidx.constraintlayout:constraintlayout:${Versions.SupportAndroidLibs.constraintLayout}",
         "com.android.support:support-compat:${Versions.SupportAndroidLibs.font}"
     )
     val androidArchComponents = arrayOf(

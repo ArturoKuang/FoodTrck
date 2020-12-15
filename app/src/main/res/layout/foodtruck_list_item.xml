@@ -22,6 +22,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/imageborder"
             android:contentDescription="TODO"
+            android:scaleType="fitCenter"
             tools:src="@drawable/ic_foodtruck_placeholder" />
 
         <RelativeLayout

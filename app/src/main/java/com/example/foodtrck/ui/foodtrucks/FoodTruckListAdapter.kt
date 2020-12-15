@@ -69,6 +69,11 @@ class FoodTruckListAdapter(
         : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         private lateinit var foodTruck: FoodTruck
+        private val open = "open"
+        private val closed = "closed"
+        private val primaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.red_500)
+        private val secondaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.blue_grey_500)
+
 
         init {
             itemBinding.root.setOnClickListener(this)
@@ -79,11 +84,7 @@ class FoodTruckListAdapter(
             itemBinding.foodtruckName.text = foodTruck.name
             itemBinding.foodtruckRating.text = foodTruck.rating.toString()
 
-            val open = "open"
-            val closed = "closed"
             val currentScheduleInfo: ScheduleInfo? = foodTruck.getCurrentSchedule()
-            val primaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.red_500)
-            val secondaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.blue_grey_500)
 
             if (currentScheduleInfo?.isOpen() == true) {
                 itemBinding.foodtruckOpen.text = open
@@ -93,7 +94,7 @@ class FoodTruckListAdapter(
 
                 if(miles != -1f) {
                     val distance =  "Miles: $miles"
-                    Timber.d(distance)
+                    //Timber.d("Foodtruck name:${foodTruck.name}, distance:$distance, open:${currentScheduleInfo.isOpen()}")
                     itemBinding.foodtruckMilesAway.text = distance
                     itemBinding.foodtruckMilesAway.setTextColor(primaryColor)
                 }
@@ -101,10 +102,11 @@ class FoodTruckListAdapter(
             } else {
                 itemBinding.foodtruckOpen.text = closed
                 itemBinding.foodtruckOpen.setTextColor(secondaryColor)
+                itemBinding.foodtruckMilesAway.visibility = View.INVISIBLE
             }
 
             if(item.images?.header?.first() != null || item.images?.logo_small != null) {
-                itemBinding.foodtruckImage.scaleType = ImageView.ScaleType.FIT_XY
+                itemBinding.foodtruckImage.scaleType = ImageView.ScaleType.CENTER_CROP
             } else {
                 itemBinding.foodtruckImage.scaleType = ImageView.ScaleType.FIT_CENTER
             }
