@@ -32,6 +32,11 @@ class MainActivity :
         val fragment = FoodTruckListFragment.newInstance(regionName)
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_right,
+                R.anim.slide_down,
+                R.anim.slide_right,
+                R.anim.slide_down)
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
@@ -41,6 +46,11 @@ class MainActivity :
         val fragment = FoodTruckFragment.newInstance(foodTruckID)
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_right,
+                R.anim.slide_left,
+                R.anim.slide_right,
+                R.anim.slide_left)
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
