@@ -17,13 +17,13 @@ import com.example.foodtrck.ui.ToolbarFragment
 import com.example.foodtrck.utils.GpsTracker
 import com.example.foodtrck.utils.Resource
 import com.example.foodtrck.utils.autoCleared
+import com.example.foodtrck.viewmodel.ARG_REGION_NAME
 import com.example.foodtrck.viewmodel.FoodTrucksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
 
 
-const val ARG_REGION_NAME = "arg_region_name"
 @AndroidEntryPoint
 class FoodTruckListFragment() : ToolbarFragment() {
 

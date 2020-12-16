@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.model.FoodTruckResponse
@@ -38,6 +39,7 @@ class FoodTruckMapFragment :
     private lateinit var map: GoogleMap
     private lateinit var lastLocation: LatLng
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var regionName = MutableLiveData<String>()
     private val regionViewModel: RegionListViewModel by viewModels()
     private val foodtruckViewModel: FoodTrucksViewModel by viewModels()
 
@@ -88,21 +90,30 @@ class FoodTruckMapFragment :
             map.isMyLocationEnabled = true
             getDeviceLocation()
         }
-
-        placeFoodtruckMarkers()
     }
 
+    @SuppressLint("MissingPermission")
+    private fun getDeviceLocation() {
+        val locationResult = fusedLocationProviderClient.lastLocation
+        locationResult.addOnCompleteListener(requireActivity()) { task ->
+            if (task.isSuccessful) {
+                if (task.result != null) {
+                    lastLocation = LatLng(task.result.latitude, task.result.longitude)
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, DEFAULT_ZOOM))
+                }
+
+                placeFoodtruckMarkers()
+            }
+        }
+    }
 
     private fun placeFoodtruckMarkers() {
-        //foodtruckViewModel.fetchFoodTrucks("boston")
-        foodtruckViewModel.foodTruckList.observe(viewLifecycleOwner, { result ->
-            Timber.d("RES MESSAGE ${result.message}")
+        queryRegion()?.observe(viewLifecycleOwner, { result ->
             if (result.status == Resource.Status.SUCCESS) {
                 result.data?.let { foodtruckResponse ->
                     val foodtruckList: List<FoodTruck>? =
                         foodtruckResponse.vendors?.values?.toList()
 
-                    Timber.d("FOODTRUCKLIST ${foodtruckList.toString()}")
                     foodtruckList?.forEach { foodtruck ->
                         val openFoodTruckSchedule: ScheduleInfo? = foodtruck.getCurrentSchedule()
                         if (openFoodTruckSchedule != null) {
@@ -117,14 +128,19 @@ class FoodTruckMapFragment :
                             )
                         }
                     }
-
-                    binding.foodtruckMap.invalidate()
                 }
             }
         })
     }
 
-    private fun getFoodtruckList(): LiveData<Resource<FoodTruckResponse>> {
+    private fun queryRegion(): LiveData<Resource<FoodTruckResponse>>? {
+        return getNearestRegionName().switchMap {
+            foodtruckViewModel.setQuery(it)
+            foodtruckViewModel.foodTruckList
+        }
+    }
+
+    private fun getNearestRegionName(): LiveData<String> {
         return regionViewModel.regionList.switchMap { result ->
             var nearestRegion: Region? = null
             if (result.status == Resource.Status.SUCCESS) {
@@ -140,24 +156,11 @@ class FoodTruckMapFragment :
                     nearestRegion = nearestRegionList.first()
                 }
             }
-
-            foodtruckViewModel.fetchFoodTrucks(nearestRegion?.name ?: "")
-            return@switchMap foodtruckViewModel.foodTruckList
+            regionName.value = nearestRegion?.id ?: ""
+            return@switchMap regionName
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getDeviceLocation() {
-        val locationResult = fusedLocationProviderClient.lastLocation
-        locationResult.addOnCompleteListener(requireActivity()) { task ->
-            if (task.isSuccessful) {
-                if (task.result != null) {
-                    lastLocation = LatLng(task.result.latitude, task.result.longitude)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, DEFAULT_ZOOM))
-                }
-            }
-        }
-    }
 
     override fun onPause() {
         binding.foodtruckMap.onPause()
@@ -180,7 +183,7 @@ class FoodTruckMapFragment :
 
     companion object {
         const val TAG = "FOODTRUCK_MAP_FRAGMENT"
-        private const val DEFAULT_ZOOM = 15f
+        private const val DEFAULT_ZOOM = 10f
         private const val SEARCH_RADIUS = 50f //MILES
 
         fun newInstance(): FoodTruckMapFragment {

@@ -5,10 +5,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.foodtrck.data.model.FoodTruckResponse
 import com.example.foodtrck.data.repository.StreetFoodRepository
-import com.example.foodtrck.ui.foodtrucks.ARG_REGION_NAME
 import com.example.foodtrck.utils.Resource
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
+const val ARG_REGION_NAME = "arg_region_name"
 
 class FoodTrucksViewModel @ViewModelInject constructor(
     private val repository: StreetFoodRepository,
@@ -24,11 +25,15 @@ class FoodTrucksViewModel @ViewModelInject constructor(
         _foodTruckList
     }
 
-    fun fetchFoodTrucks(regionName: String) {
+    private fun fetchFoodTrucks(regionName: String) {
         viewModelScope.launch {
             repository.fetchFoodTrucks(regionName).collect {
                 _foodTruckList.value = it
             }
         }
+    }
+
+    fun setQuery(regionName: String) {
+        savedStateHandle[ARG_REGION_NAME] = regionName
     }
 }
