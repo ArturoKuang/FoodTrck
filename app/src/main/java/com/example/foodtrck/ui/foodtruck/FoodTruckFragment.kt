@@ -39,7 +39,6 @@ class FoodTruckFragment: ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FoodtruckDetailsFragmentBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 

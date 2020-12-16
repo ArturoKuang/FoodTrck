@@ -33,6 +33,7 @@ class MainActivity :
         navigationView = findViewById(R.id.nav_view)
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        transitionRegionFragment()
 
         navigationView.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {

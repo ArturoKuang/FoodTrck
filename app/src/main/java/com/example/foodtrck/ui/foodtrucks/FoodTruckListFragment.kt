@@ -48,12 +48,8 @@ class FoodTruckListFragment() : ToolbarFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        Timber.d("ARG_REGION_NAME $region")
+    ): View {
         binding = FoodtruckListBinding.inflate(inflater, container, false)
-        var regionName = region.capitalize(Locale.ROOT)
-
-        setToolbar(regionName, true)
         return binding.root
     }
 
@@ -61,6 +57,8 @@ class FoodTruckListFragment() : ToolbarFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecycleViewer()
         subscribeUI()
+        val regionName = region.capitalize(Locale.ROOT)
+        setToolbar(regionName, true)
     }
 
     private fun setUpRecycleViewer() {

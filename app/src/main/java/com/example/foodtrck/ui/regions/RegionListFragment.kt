@@ -37,7 +37,6 @@ class RegionListFragment : ToolbarFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = RegionListBinding.inflate(inflater, container, false)
-        setToolbar("City List", false)
         return binding.root
     }
 
@@ -45,6 +44,7 @@ class RegionListFragment : ToolbarFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecycleViewer()
         subscribeUI()
+        setToolbar("City List", false)
     }
 
     private fun setupRecycleViewer() {

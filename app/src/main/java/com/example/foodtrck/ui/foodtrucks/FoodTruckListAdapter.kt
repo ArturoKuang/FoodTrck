@@ -94,7 +94,6 @@ class FoodTruckListAdapter(
 
                 if(miles != -1f) {
                     val distance =  "Miles: $miles"
-                    //Timber.d("Foodtruck name:${foodTruck.name}, distance:$distance, open:${currentScheduleInfo.isOpen()}")
                     itemBinding.foodtruckMilesAway.text = distance
                     itemBinding.foodtruckMilesAway.setTextColor(primaryColor)
                 }
@@ -122,7 +121,7 @@ class FoodTruckListAdapter(
             }
 
             var distance = currentLocation.distanceTo(location)
-            distance = location.convertToRoundedMiles(distance)
+            distance = convertToRoundedMiles(distance)
             return distance
         }
 

@@ -24,7 +24,7 @@ class FoodTrucksViewModel @ViewModelInject constructor(
         _foodTruckList
     }
 
-    private fun fetchFoodTrucks(regionName: String) {
+    fun fetchFoodTrucks(regionName: String) {
         viewModelScope.launch {
             repository.fetchFoodTrucks(regionName).collect {
                 _foodTruckList.value = it

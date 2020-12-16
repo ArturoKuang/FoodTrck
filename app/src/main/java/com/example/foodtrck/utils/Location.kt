@@ -11,15 +11,15 @@ fun createLocation(latitude: Double, longitude: Double): Location {
     return location
 }
 
-val Location.conversionRateMiles: Float
+val conversionRateMiles: Float
     get() = 1609F
 
-fun Location.convertToMiles(distance: Float): Float {
+fun convertToMiles(distance: Float): Float {
     return (distance/conversionRateMiles)
 }
 
 //2 decimal places
-fun Location.convertToRoundedMiles(distance: Float): Float {
+fun convertToRoundedMiles(distance: Float): Float {
     return convertToMiles(distance).toDouble().round(2).toFloat()
 }
 
