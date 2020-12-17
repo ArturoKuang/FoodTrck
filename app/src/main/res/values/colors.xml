@@ -11,6 +11,7 @@
     <color name="red_A200_alpha_010">#19FF8A80</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="white_50_alpha_080">#CCFFFFFF</color>
     <color name="white_50_alpha_060">#99ffffff</color>
 
     <color name="black">#FF000000</color>

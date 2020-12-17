@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
+import com.bumptech.glide.Glide
+import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.model.FoodTruckResponse
 import com.example.foodtrck.data.model.Region
@@ -24,8 +26,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.location_bottom_sheet.view.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
@@ -33,7 +37,8 @@ import timber.log.Timber
 @AndroidEntryPoint
 class FoodTruckMapFragment :
     ToolbarFragment(),
-    OnMapReadyCallback {
+    OnMapReadyCallback,
+    GoogleMap.OnMarkerClickListener {
 
     private var binding: FoodtruckMapFragmentBinding by autoCleared()
     private lateinit var map: GoogleMap
@@ -42,6 +47,7 @@ class FoodTruckMapFragment :
     private var regionName = MutableLiveData<String>()
     private val regionViewModel: RegionListViewModel by viewModels()
     private val foodtruckViewModel: FoodTrucksViewModel by viewModels()
+    private val markerFoodtruckTable = mutableMapOf<Marker, FoodTruck>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +96,8 @@ class FoodTruckMapFragment :
             map.isMyLocationEnabled = true
             getDeviceLocation()
         }
+
+        map.setOnMarkerClickListener(this)
     }
 
     @SuppressLint("MissingPermission")
@@ -121,11 +129,13 @@ class FoodTruckMapFragment :
                                 openFoodTruckSchedule.latitude,
                                 openFoodTruckSchedule.longitude
                             )
-                            map.addMarker(
+                            val marker: Marker = map.addMarker(
                                 MarkerOptions()
                                     .position(foodTruckPosition)
                                     .title(foodtruck.name)
                             )
+
+                            markerFoodtruckTable[marker] = foodtruck
                         }
                     }
                 }
@@ -189,5 +199,24 @@ class FoodTruckMapFragment :
         fun newInstance(): FoodTruckMapFragment {
             return FoodTruckMapFragment()
         }
+    }
+
+    override fun onMarkerClick(marker: Marker?): Boolean {
+        val foodtruck = markerFoodtruckTable[marker]
+        Timber.d("Marker OnClick() $foodtruck")
+
+        binding.bottomSheet.body.visibility = View.VISIBLE
+        Glide.with(this)
+            .load(foodtruck?.images?.header?.first())
+            .placeholder(R.drawable.ic_foodtruck_placeholder)
+            .into(binding.bottomSheet.body.food_truck_details_image)
+
+        binding.bottomSheet.body.food_truck_details_phone.text = foodtruck?.phone
+        binding.bottomSheet.body.food_truck_details_website.text = foodtruck?.url
+        binding.bottomSheet.body.rating.text = foodtruck?.rating.toString()
+        binding.bottomSheet.body.food_truck_details_email.text = foodtruck?.email
+        binding.bottomSheet.body.food_truck_details_description.text = foodtruck?.description
+
+        return false
     }
 }
