@@ -1,14 +1,18 @@
 package com.example.foodtrck.ui.map
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.bumptech.glide.Glide
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
@@ -28,6 +32,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.location_bottom_sheet.view.*
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -70,6 +75,34 @@ class FoodTruckMapFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideToolbar()
+
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.body)
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(newState) {
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        setAnimationDrawable(binding.bottomSheet.body.peek, R.drawable.animated_bottom_sheet_peek_down)
+                    }
+
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        setAnimationDrawable(binding.bottomSheet.body.peek, R.drawable.animated_bottom_sheet_peek_up)
+                    }
+                    else -> {}
+                }
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) { }
+        })
+    }
+
+    private fun setAnimationDrawable(view: ImageView, @DrawableRes resID: Int) {
+        val animation: AnimatedVectorDrawableCompat? =
+            AnimatedVectorDrawableCompat.create(requireContext(), resID)
+
+        animation?.let {
+            view.setImageDrawable(it)
+            (view.drawable as Animatable?)?.start()
+        }
     }
 
     override fun onResume() {
