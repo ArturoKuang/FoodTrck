@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.transform
+import timber.log.Timber
 import javax.inject.Inject
 
 class StreetFoodRepository @Inject constructor(
@@ -27,19 +28,26 @@ class StreetFoodRepository @Inject constructor(
         return flow {
             val regionsCache = fetchRegionsCache()
             emit(regionsCache)
-
-            //TO CHANGE
-            if(regionsCache != null) {
-                return@flow
-            }
-
             emit(Resource.loading())
-            val result = streetFoodRemoteDataSource.getRegions()
 
+            val result = streetFoodRemoteDataSource.getRegions()
             if(result.status == Resource.Status.SUCCESS) {
                 result.data?.let { regionList ->
 
-                    for (region in regionList) {
+                    var newRegions: List<Region> = regionList
+                    if(regionsCache?.data != null) {
+                        newRegions = regionList.filterNot { region ->
+                            for (oldRegion in regionsCache.data) {
+                                if(oldRegion.id == region.id)
+                                    return@filterNot true
+                            }
+                            false
+                        }
+                    }
+
+                    Timber.d("NEW REGIONS: $newRegions")
+
+                    for (region in newRegions) {
                         val name = region.nameLong ?: region.name
                         val location = "${region.latitude},${region.longitude}"
 
@@ -50,12 +58,11 @@ class StreetFoodRepository @Inject constructor(
                         region.image = placePhotoItem
                     }
 
-                    saveToRegionsDatabase(regionList)
-
+                    saveToRegionsDatabase(newRegions)
                 }
             }
 
-            emit(result)
+            emit(fetchRegionsCache())
 
         }.flowOn(Dispatchers.IO)
     }
