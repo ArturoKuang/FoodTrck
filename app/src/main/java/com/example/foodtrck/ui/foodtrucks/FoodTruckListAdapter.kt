@@ -91,7 +91,7 @@ class FoodTruckListAdapter(
                 itemBinding.foodtruckOpen.text = open
                 itemBinding.foodtruckOpen.setTextColor(primaryColor)
                 itemBinding.foodtruckMilesAway.visibility = View.VISIBLE
-                val miles = distanceAwayFrom(currentScheduleInfo.getLocation())
+                val miles = distanceAwayFrom(foodTruck)
 
                 if(miles != -1f) {
                     val distance =  "Miles: $miles"
@@ -118,14 +118,12 @@ class FoodTruckListAdapter(
             ViewCompat.setTransitionName(itemBinding.foodtruckImage, foodTruck.id)
         }
 
-        private fun distanceAwayFrom(location: Location): Float {
+        private fun distanceAwayFrom(foodTruck: FoodTruck): Float {
             if(currentLocation == null) {
                 return -1f
             }
 
-            var distance = currentLocation.distanceTo(location)
-            distance = convertToRoundedMiles(distance)
-            return distance
+            return foodTruck.distanceAwayFrom(currentLocation)
         }
 
         override fun onClick(view: View?) {

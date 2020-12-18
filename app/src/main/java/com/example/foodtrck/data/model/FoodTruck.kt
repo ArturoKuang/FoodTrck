@@ -1,7 +1,9 @@
 package com.example.foodtrck.data.model
 
+import android.location.Location
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.foodtrck.utils.convertToRoundedMiles
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -26,6 +28,14 @@ data class FoodTruck(
         var logo_small: String,
         var header: List<String>
     )
+
+    //returns Miles, and -1 if food truck is not open
+    fun distanceAwayFrom(location: Location): Float {
+        val foodtruckLocation: Location = getCurrentSchedule()?.getLocation() ?: return -1f
+        var distance = location.distanceTo(foodtruckLocation)
+        distance = convertToRoundedMiles(distance)
+        return distance
+    }
 
     fun getCurrentSchedule(): ScheduleInfo? {
         val today = Calendar.getInstance()

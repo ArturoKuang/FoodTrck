@@ -32,7 +32,7 @@ class FoodTruckListFragment() : ToolbarFragment() {
     private lateinit var gpsTracker: GpsTracker
     private lateinit var adapter: FoodTruckListAdapter
     private var foodTruckItemListener: FoodTruckListAdapter.FoodTruckItemListener? = null
-
+    private var foodtruckList: List<FoodTruck> = emptyList()
 
     val region: String by lazy {
         arguments?.getString(ARG_REGION_NAME, "") ?: ""
@@ -59,6 +59,33 @@ class FoodTruckListFragment() : ToolbarFragment() {
         subscribeUI()
         val regionName = region.capitalize(Locale.ROOT)
         setToolbar(regionName, true)
+
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId  ->
+            when(checkedId) {
+                R.id.chip_distance -> {
+                    val distanceSortedList = foodtruckList.sortedBy { foodTruck ->
+                        val distance = foodTruck.distanceAwayFrom(gpsTracker.getCurrentLocation()!!)
+                        if(distance == -1f) {
+                            return@sortedBy Float.MAX_VALUE
+                        }
+                        return@sortedBy distance
+                    }
+                    adapter.updateData(distanceSortedList)
+                }
+                R.id.chip_rating -> {
+                    val ratingSortedList = foodtruckList.sortedByDescending { foodTruck ->
+                        foodTruck.rating
+                    }
+                    adapter.updateData(ratingSortedList)
+                }
+                R.id.chip_name -> {
+                    val nameSortedList = foodtruckList.sortedByDescending { foodTruck ->
+                        foodTruck.name
+                    }
+                    adapter.updateData(nameSortedList)
+                }
+            }
+        }
     }
 
     private fun setUpRecycleViewer() {
@@ -84,6 +111,9 @@ class FoodTruckListFragment() : ToolbarFragment() {
                         val list: List<FoodTruck>? =
                             foodTruckResponse.vendors?.values?.toList()
 
+                        if (list != null) {
+                            foodtruckList = list
+                        }
                         adapter.updateData(list)
                     }
                 }

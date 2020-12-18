@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.transform
-import timber.log.Timber
 import javax.inject.Inject
 
 class StreetFoodRepository @Inject constructor(
@@ -45,8 +44,6 @@ class StreetFoodRepository @Inject constructor(
                         }
                     }
 
-                    Timber.d("NEW REGIONS: $newRegions")
-
                     for (region in newRegions) {
                         val name = region.nameLong ?: region.name
                         val location = "${region.latitude},${region.longitude}"
@@ -58,7 +55,7 @@ class StreetFoodRepository @Inject constructor(
                         region.image = placePhotoItem
                     }
 
-                    saveToRegionsDatabase(newRegions)
+                    saveRegionsDatabase(newRegions)
                 }
             }
 
@@ -102,9 +99,7 @@ class StreetFoodRepository @Inject constructor(
             Resource.success(it)
         }
 
-
-    private fun saveToRegionsDatabase(data: List<Region>) {
-        regionDao.deleteAll(data)
+    private fun saveRegionsDatabase(data: List<Region>) {
         regionDao.insertAll(data)
     }
 

@@ -7,6 +7,7 @@ import com.example.foodtrck.data.local.FoodTruckDao
 import com.example.foodtrck.data.local.FoodTruckDatabase
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.local.RegionDatabase
+import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.remote.*
 import com.example.foodtrck.data.repository.StreetFoodRepository
 import com.example.foodtrck.utils.GooglePlaceRetrofit
@@ -127,5 +128,4 @@ object AppModule {
 
         return StreetFoodRepository(googlePlaceRemoteDataSource, streetFoodRemoteDataSource, regionDao, foodTruckDao)
     }
-
 }

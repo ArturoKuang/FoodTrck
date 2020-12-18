@@ -8,4 +8,7 @@
     <string name="text_contact">Contact</string>
     <string name="text_schedule">Schedule</string>
     <string name="text_description">Description</string>
+    <string name="chip_distance">Distance</string>
+    <string name="chip_rating">Rating</string>
+    <string name="chip_name">Name</string>
 </resources>

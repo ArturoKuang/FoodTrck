@@ -48,7 +48,6 @@ class MainActivity :
                     if(onCurrentFragment(RegionListFragment.TAG)) {
                         return@setOnNavigationItemSelectedListener true
                     }
-
                     transitionRegionFragment()
                     true
                 }
@@ -120,13 +119,6 @@ class MainActivity :
         foodtruckDetails.sharedElementReturnTransition = FoodtruckImageTransition()
         foodtruckDetails.enterTransition = Fade()
         foodtruckDetails.exitTransition = Fade()
-
-
-//            .setCustomAnimations(
-//                R.anim.slide_right,
-//                R.anim.slide_left,
-//                R.anim.slide_right,
-//                R.anim.slide_left)
 
         supportFragmentManager
             .beginTransaction()

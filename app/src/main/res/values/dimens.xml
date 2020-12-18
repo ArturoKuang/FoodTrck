@@ -7,6 +7,7 @@
     <dimen name="keyline_1">4dp</dimen>
     <dimen name="keyline_2">8dp</dimen>
     <dimen name="keyline_3">10dp</dimen>
+    <dimen name="keyline_12dp">12dp</dimen>
     <dimen name="keyline_4">16dp</dimen>
     <dimen name="keyline_5">24dp</dimen>
 
@@ -16,6 +17,4 @@
     <dimen name="textSize_3">16sp</dimen>
     <dimen name="textSize_4">18sp</dimen>
     <dimen name="textSize_5">14sp</dimen>
-    <dimen name="keyline_12dp">12dp</dimen>
-
 </resources>

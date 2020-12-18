@@ -1,7 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/keyline_12dp"
+            android:layout_marginRight="@dimen/keyline_2"
+            android:text="Sort by:"
+            android:textAppearance="@style/TextAppearance.FoodTrck.Subtitle2" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedChip="@id/chip_name"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_distance"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chip_distance"
+                android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
+                app:checkedIconVisible="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rating"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chip_rating"
+                android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
+                app:checkedIconVisible="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_name"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chip_name"
+                android:textAppearance="@style/TextAppearance.FoodTrck.Caption"
+                app:checkedIconVisible="true" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foodTrucks_rv"
@@ -13,6 +71,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-</FrameLayout>
+</LinearLayout>
