@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
@@ -26,7 +27,7 @@ class FoodTruckListAdapter(
     : RecyclerView.Adapter<FoodTruckListAdapter.FoodTruckListViewHolder>() {
 
     interface  FoodTruckItemListener {
-        fun onClickFoodTruck(foodTruckID: String)
+        fun onClickFoodTruck(foodTruckID: String, view: View?)
     }
 
     private val foodtrucks = ArrayList<FoodTruck>()
@@ -113,6 +114,8 @@ class FoodTruckListAdapter(
             Glide.with(itemBinding.root)
                 .load(item.images?.header?.first() ?: item.images?.logo_small ?: R.drawable.ic_foodtruck_placeholder)
                 .into(itemBinding.foodtruckImage)
+
+            ViewCompat.setTransitionName(itemBinding.foodtruckImage, foodTruck.id)
         }
 
         private fun distanceAwayFrom(location: Location): Float {
@@ -125,8 +128,8 @@ class FoodTruckListAdapter(
             return distance
         }
 
-        override fun onClick(v: View?) {
-            listener.onClickFoodTruck(foodTruck.id)
+        override fun onClick(view: View?) {
+            listener.onClickFoodTruck(foodTruck.id, view?.foodtruck_image)
         }
     }
 }

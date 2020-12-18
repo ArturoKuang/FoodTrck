@@ -2,12 +2,15 @@ package com.example.foodtrck.ui
 
 import android.graphics.Region
 import android.os.Bundle
+import android.transition.Fade
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import com.example.foodtrck.R
 import com.example.foodtrck.ui.foodtruck.FoodTruckFragment
+import com.example.foodtrck.ui.foodtruck.FoodtruckImageTransition
 import com.example.foodtrck.ui.foodtrucks.FoodTruckListAdapter
 import com.example.foodtrck.ui.foodtrucks.FoodTruckListFragment
 import com.example.foodtrck.ui.map.FoodTruckMapFragment
@@ -111,15 +114,23 @@ class MainActivity :
             .commit()
     }
 
-    override fun onClickFoodTruck(foodTruckID: String) {
+    override fun onClickFoodTruck(foodTruckID: String, view: View?) {
         val foodtruckDetails = FoodTruckFragment.newInstance(foodTruckID)
+        foodtruckDetails.sharedElementEnterTransition = FoodtruckImageTransition()
+        foodtruckDetails.sharedElementReturnTransition = FoodtruckImageTransition()
+        foodtruckDetails.enterTransition = Fade()
+        foodtruckDetails.exitTransition = Fade()
+
+
+//            .setCustomAnimations(
+//                R.anim.slide_right,
+//                R.anim.slide_left,
+//                R.anim.slide_right,
+//                R.anim.slide_left)
+
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_right,
-                R.anim.slide_left,
-                R.anim.slide_right,
-                R.anim.slide_left)
+            .addSharedElement(view!!, "details_image_transition")
             .replace(R.id.fragment_container, foodtruckDetails, FoodTruckFragment.TAG)
             .addToBackStack(null)
             .commit()

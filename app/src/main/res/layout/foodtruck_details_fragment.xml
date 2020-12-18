@@ -16,6 +16,7 @@
 
         <ImageView
             android:id="@+id/food_truck_details_image"
+            android:transitionName="details_image_transition"
             android:layout_width="match_parent"
             android:layout_height="210dp"
             android:contentDescription="TODO"
