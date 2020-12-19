@@ -33,6 +33,10 @@ class FoodTruckListFragment() : ToolbarFragment() {
     private lateinit var adapter: FoodTruckListAdapter
     private var foodTruckItemListener: FoodTruckListAdapter.FoodTruckItemListener? = null
     private var foodtruckList: List<FoodTruck> = emptyList()
+    private val currentLocation: Location? by lazy {
+        gpsTracker = GpsTracker(requireContext())
+        gpsTracker.getCurrentLocation()
+    }
 
     val region: String by lazy {
         arguments?.getString(ARG_REGION_NAME, "") ?: ""
@@ -40,7 +44,6 @@ class FoodTruckListFragment() : ToolbarFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        gpsTracker = GpsTracker(context)
         foodTruckItemListener = context as FoodTruckListAdapter.FoodTruckItemListener
     }
 
@@ -63,8 +66,12 @@ class FoodTruckListFragment() : ToolbarFragment() {
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId  ->
             when(checkedId) {
                 R.id.chip_distance -> {
+                    if(currentLocation == null) {
+                        return@setOnCheckedChangeListener
+                    }
+
                     val distanceSortedList = foodtruckList.sortedBy { foodTruck ->
-                        val distance = foodTruck.distanceAwayFrom(gpsTracker.getCurrentLocation()!!)
+                        val distance = foodTruck.distanceAwayFrom(currentLocation!!)
                         if(distance == -1f) {
                             return@sortedBy Float.MAX_VALUE
                         }
@@ -89,9 +96,7 @@ class FoodTruckListFragment() : ToolbarFragment() {
     }
 
     private fun setUpRecycleViewer() {
-        val location = gpsTracker.getCurrentLocation()
-        Timber.d("CURRENT LOCATION: $location")
-        adapter = FoodTruckListAdapter(foodTruckItemListener!!, gpsTracker.getCurrentLocation())
+        adapter = FoodTruckListAdapter(foodTruckItemListener!!, currentLocation)
         val bottomTopSpacing = resources.getDimensionPixelSize(R.dimen.keyline_3)
         val leftRightSpacing = resources.getDimensionPixelSize(R.dimen.keyline_5)
 
