@@ -86,7 +86,7 @@ class FoodTruckListFragment() : ToolbarFragment() {
                     adapter.updateData(ratingSortedList)
                 }
                 R.id.chip_name -> {
-                    val nameSortedList = foodtruckList.sortedByDescending { foodTruck ->
+                    val nameSortedList = foodtruckList.sortedBy { foodTruck ->
                         foodTruck.name
                     }
                     adapter.updateData(nameSortedList)
