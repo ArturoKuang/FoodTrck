@@ -165,7 +165,9 @@ class FoodTruckMapFragment :
                             foodtruckResponse.vendors?.values?.toList()
 
                         foodtruckList?.forEach { foodtruck ->
-                            val openFoodTruckSchedule: ScheduleInfo? = foodtruck.getCurrentSchedule()
+                            val openFoodTruckSchedule: ScheduleInfo? =
+                                foodtruck.getCurrentSchedule()
+
                             if (openFoodTruckSchedule != null) {
                                 val foodTruckPosition = LatLng(
                                     openFoodTruckSchedule.latitude,

@@ -7,7 +7,11 @@ import com.example.foodtrck.data.local.FoodTruckDao
 import com.example.foodtrck.data.local.FoodTruckDatabase
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.local.RegionDatabase
-import com.example.foodtrck.data.remote.*
+import com.example.foodtrck.data.remote.GooglePlaceInterceptor
+import com.example.foodtrck.data.remote.GooglePlaceRemoteDataSource
+import com.example.foodtrck.data.remote.GooglePlaceService
+import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
+import com.example.foodtrck.data.remote.StreetFoodService
 import com.example.foodtrck.data.repository.StreetFoodRepository
 import com.example.foodtrck.utils.GooglePlaceRetrofit
 import com.example.foodtrck.utils.StreetFoodRetrofit

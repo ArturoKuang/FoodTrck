@@ -2,7 +2,7 @@ package com.example.foodtrck.data.model
 import android.location.Location
 import com.example.foodtrck.utils.convertTrimmedDate
 import com.example.foodtrck.utils.createLocation
-import java.util.*
+import java.util.Date
 
 data class ScheduleInfo(
     val start: Long,

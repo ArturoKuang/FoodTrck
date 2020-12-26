@@ -2,7 +2,9 @@ package com.example.foodtrck.viewmodel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.example.foodtrck.data.repository.StreetFoodRepository
 import com.example.foodtrck.ui.foodtruck.ARG_FOODTRUCK
 

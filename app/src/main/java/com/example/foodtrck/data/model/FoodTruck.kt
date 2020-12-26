@@ -5,7 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.foodtrck.utils.convertToRoundedMiles
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 @Entity(tableName = "FoodTrucks")
 data class FoodTruck(

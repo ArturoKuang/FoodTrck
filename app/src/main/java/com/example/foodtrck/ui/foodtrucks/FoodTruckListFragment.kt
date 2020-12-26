@@ -19,7 +19,7 @@ import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.ARG_REGION_NAME
 import com.example.foodtrck.viewmodel.FoodTrucksViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Locale
 import timber.log.Timber
 
 @AndroidEntryPoint
