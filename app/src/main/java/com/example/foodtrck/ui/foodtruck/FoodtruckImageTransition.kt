@@ -5,7 +5,7 @@ import android.transition.ChangeImageTransform
 import android.transition.ChangeTransform
 import android.transition.TransitionSet
 
-class FoodtruckImageTransition: TransitionSet() {
+class FoodtruckImageTransition : TransitionSet() {
     init {
         ordering = ORDERING_TOGETHER
         addTransition(ChangeBounds())

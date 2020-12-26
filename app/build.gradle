@@ -58,3 +58,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'pub.devrel:easypermissions:3.0.0'
 }
+
+ktlint {
+    android.set(true)
+    outputColorName.set("RED")
+}

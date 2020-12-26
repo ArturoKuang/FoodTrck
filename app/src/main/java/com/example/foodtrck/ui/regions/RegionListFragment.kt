@@ -17,7 +17,6 @@ import com.example.foodtrck.viewmodel.RegionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
 @AndroidEntryPoint
 class RegionListFragment : ToolbarFragment() {
 
@@ -52,28 +51,31 @@ class RegionListFragment : ToolbarFragment() {
         binding.regionRv.layoutManager =
             GridLayoutManager(requireContext(), 2)
 
-        val spacing =  resources.getDimensionPixelSize(R.dimen.keyline_2)
+        val spacing = resources.getDimensionPixelSize(R.dimen.keyline_2)
         val itemDecoration = SpaceItemDecoration(spacing)
         binding.regionRv.adapter = adapter
         binding.regionRv.addItemDecoration(itemDecoration)
     }
 
     private fun subscribeUI() {
-        viewModel.regionList.observe(viewLifecycleOwner, { result ->
-            when (result.status) {
-                Resource.Status.SUCCESS -> {
-                    result.data?.let { list ->
-                        adapter.updateData(list)
+        viewModel.regionList.observe(
+            viewLifecycleOwner,
+            { result ->
+                when (result.status) {
+                    Resource.Status.SUCCESS -> {
+                        result.data?.let { list ->
+                            adapter.updateData(list)
+                        }
+                        binding.progressBar.visibility = View.GONE
                     }
-                    binding.progressBar.visibility = View.GONE
-                }
-                Resource.Status.ERROR ->
-                    Timber.d(result.message)
+                    Resource.Status.ERROR ->
+                        Timber.d(result.message)
 
-                Resource.Status.LOADING ->
-                    binding.progressBar.visibility = View.VISIBLE
+                    Resource.Status.LOADING ->
+                        binding.progressBar.visibility = View.VISIBLE
+                }
             }
-        })
+        )
     }
 
     companion object {

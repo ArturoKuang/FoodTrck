@@ -1,19 +1,14 @@
 package com.example.foodtrck.ui.foodtruck
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.databinding.ScheduleListItemBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import timber.log.Timber
 import java.text.DateFormat
-
 
 class ScheduleAdapter(private val fragment: FoodTruckFragment) :
     RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
@@ -52,7 +47,6 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) :
         private val mapView = itemBinding.scheduleMap
         private lateinit var map: GoogleMap
         private lateinit var location: LatLng
-
 
         init {
             with(mapView) {
@@ -102,6 +96,5 @@ class ScheduleAdapter(private val fragment: FoodTruckFragment) :
                 mapType = GoogleMap.MAP_TYPE_NONE
             }
         }
-
     }
 }

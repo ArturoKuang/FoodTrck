@@ -1,7 +1,6 @@
 package com.example.foodtrck.data.model
 
 import android.location.Location
-import android.location.LocationManager
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.foodtrck.utils.createLocation

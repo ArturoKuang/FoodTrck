@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface StreetFoodService {
     @GET("regions")
-    suspend fun getRegions() : Response<List<Region>>
+    suspend fun getRegions(): Response<List<Region>>
 
     @GET("schedule/{region}")
     suspend fun getFoodTrucks(@Path("region") region: String): Response<FoodTruckResponse>

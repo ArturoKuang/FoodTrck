@@ -8,10 +8,11 @@ class SpaceItemDecoration(
     private val left: Int,
     private val top: Int,
     private val right: Int,
-    private val bottom: Int)
-    : RecyclerView.ItemDecoration() {
+    private val bottom: Int
+) :
+    RecyclerView.ItemDecoration() {
 
-    constructor(spacing: Int): this(spacing, spacing, spacing, spacing)
+    constructor(spacing: Int) : this(spacing, spacing, spacing, spacing)
 
     override fun getItemOffsets(
         outRect: Rect,

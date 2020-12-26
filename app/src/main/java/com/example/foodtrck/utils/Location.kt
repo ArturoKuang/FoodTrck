@@ -15,10 +15,10 @@ val conversionRateMiles: Float
     get() = 1609F
 
 fun convertToMiles(distance: Float): Float {
-    return (distance/conversionRateMiles)
+    return (distance / conversionRateMiles)
 }
 
-//2 decimal places
+// 2 decimal places
 fun convertToRoundedMiles(distance: Float): Float {
     return convertToMiles(distance).toDouble().round(2).toFloat()
 }

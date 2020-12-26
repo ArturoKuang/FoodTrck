@@ -1,21 +1,17 @@
 package com.example.foodtrck.ui.regions
 
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.Region
 import com.example.foodtrck.databinding.RegionListItemBinding
-import timber.log.Timber
 
-class RegionListAdapter(private var listener: RegionItemListener)
-    : RecyclerView.Adapter<RegionListAdapter.RegionViewHolder>() {
+class RegionListAdapter(private var listener: RegionItemListener) :
+    RecyclerView.Adapter<RegionListAdapter.RegionViewHolder>() {
 
     interface RegionItemListener {
         fun onClickRegion(regionName: String)
@@ -45,8 +41,9 @@ class RegionListAdapter(private var listener: RegionItemListener)
 
     class RegionViewHolder(
         private val itemBinding: RegionListItemBinding,
-        private val listener: RegionItemListener)
-        : RecyclerView.ViewHolder(itemBinding.root),
+        private val listener: RegionItemListener
+    ) :
+        RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 
         private lateinit var region: Region
@@ -57,7 +54,7 @@ class RegionListAdapter(private var listener: RegionItemListener)
 
         fun bind(item: Region) {
             this.region = item
-            if(item.nameLong.isNullOrBlank()) {
+            if (item.nameLong.isNullOrBlank()) {
                 itemBinding.titleRegionCity.text = item.name
             } else {
                 val city = item.nameLong.substringBeforeLast(",")
@@ -67,7 +64,7 @@ class RegionListAdapter(private var listener: RegionItemListener)
                 itemBinding.titleRegion.text = region
             }
 
-            //Timber.d("PhotoUri: ${item.image?.photoUri}")
+            // Timber.d("PhotoUri: ${item.image?.photoUri}")
             Glide.with(itemBinding.root)
                 .load(item.image?.photoUri)
                 .transform(CenterCrop())

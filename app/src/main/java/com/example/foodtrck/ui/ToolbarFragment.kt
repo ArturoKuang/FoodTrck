@@ -1,6 +1,5 @@
 package com.example.foodtrck.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView

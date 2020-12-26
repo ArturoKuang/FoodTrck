@@ -8,7 +8,7 @@ import okhttp3.Response
 
 private const val radius = "1000"
 
-class GooglePlaceInterceptor: Interceptor {
+class GooglePlaceInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
@@ -23,5 +23,4 @@ class GooglePlaceInterceptor: Interceptor {
 
         return chain.proceed(newRequest)
     }
-
 }

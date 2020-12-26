@@ -1,13 +1,9 @@
 package com.example.foodtrck.ui
 
-import android.graphics.Region
 import android.os.Bundle
 import android.transition.Fade
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.FragmentManager
 import com.example.foodtrck.R
 import com.example.foodtrck.ui.foodtruck.FoodTruckFragment
 import com.example.foodtrck.ui.foodtruck.FoodtruckImageTransition
@@ -16,10 +12,8 @@ import com.example.foodtrck.ui.foodtrucks.FoodTruckListFragment
 import com.example.foodtrck.ui.map.FoodTruckMapFragment
 import com.example.foodtrck.ui.regions.RegionListAdapter
 import com.example.foodtrck.ui.regions.RegionListFragment
-import com.google.android.gms.maps.MapFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity :
@@ -37,22 +31,21 @@ class MainActivity :
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        if(savedInstanceState == null)
-        {
+        if (savedInstanceState == null) {
             transitionRegionFragment()
         }
 
         navigationView.setOnNavigationItemSelectedListener { menuItem ->
-            when(menuItem.itemId) {
+            when (menuItem.itemId) {
                 R.id.navigation_regions -> {
-                    if(onCurrentFragment(RegionListFragment.TAG)) {
+                    if (onCurrentFragment(RegionListFragment.TAG)) {
                         return@setOnNavigationItemSelectedListener true
                     }
                     transitionRegionFragment()
                     true
                 }
                 R.id.navigation_map -> {
-                    if(onCurrentFragment(FoodTruckMapFragment.TAG)) {
+                    if (onCurrentFragment(FoodTruckMapFragment.TAG)) {
                         return@setOnNavigationItemSelectedListener true
                     }
                     transitionFoodtruckMapFragment()
@@ -65,7 +58,7 @@ class MainActivity :
 
     private fun onCurrentFragment(fragmentTag: String): Boolean {
         val currentFragment = supportFragmentManager.findFragmentByTag(fragmentTag)
-        if(currentFragment != null && currentFragment.isVisible) {
+        if (currentFragment != null && currentFragment.isVisible) {
             return true
         }
         return false
@@ -79,7 +72,8 @@ class MainActivity :
                 R.anim.slide_up,
                 R.anim.slide_down,
                 R.anim.slide_up,
-                R.anim.slide_down)
+                R.anim.slide_down
+            )
             .replace(R.id.fragment_container, regionListFragment, RegionListFragment.TAG)
             .addToBackStack(null)
             .commit()
@@ -93,7 +87,8 @@ class MainActivity :
                 R.anim.slide_up,
                 R.anim.slide_down,
                 R.anim.slide_up,
-                R.anim.slide_down)
+                R.anim.slide_down
+            )
             .replace(R.id.fragment_container, regionListFragment, FoodTruckMapFragment.TAG)
             .addToBackStack(null)
             .commit()
@@ -107,7 +102,8 @@ class MainActivity :
                 R.anim.slide_right,
                 R.anim.slide_down,
                 R.anim.slide_right,
-                R.anim.slide_down)
+                R.anim.slide_down
+            )
             .replace(R.id.fragment_container, foodTruckListFragment, FoodTruckListFragment.TAG)
             .addToBackStack(null)
             .commit()

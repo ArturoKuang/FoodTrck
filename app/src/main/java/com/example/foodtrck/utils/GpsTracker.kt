@@ -14,12 +14,11 @@ import android.os.IBinder
 import androidx.core.app.ActivityCompat
 import java.lang.Exception
 
-
 private const val MIN_DISTANCE_CHANGE_FOR_UPDATES: Float = 10f
 private const val MIN_TIME_BW_UPDATES: Long = 1000 * 60 * 1 // 1 minute
 private const val LOCATION_NETWORK_REQUEST_CODE = 101
 
-class GpsTracker(val context: Context): Service(), LocationListener {
+class GpsTracker(val context: Context) : Service(), LocationListener {
     var isGPSEnabled = false
         private set
 
@@ -41,26 +40,30 @@ class GpsTracker(val context: Context): Service(), LocationListener {
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
-            if(isGPSEnabled || isNetworkEnabled) {
+            if (isGPSEnabled || isNetworkEnabled) {
                 canGetLocation = true
-                if(isNetworkEnabled) {
+                if (isNetworkEnabled) {
                     checkPermission()
                     locationManager.requestLocationUpdates(
                         LocationManager.NETWORK_PROVIDER,
                         MIN_TIME_BW_UPDATES,
                         MIN_DISTANCE_CHANGE_FOR_UPDATES,
-                        this)
+                        this
+                    )
 
-                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    location = locationManager.getLastKnownLocation(
+                        LocationManager.NETWORK_PROVIDER
+                    )
                 }
 
-                if(isGPSEnabled) {
+                if (isGPSEnabled) {
                     checkPermission()
                     locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
                         MIN_TIME_BW_UPDATES,
                         MIN_DISTANCE_CHANGE_FOR_UPDATES,
-                        this)
+                        this
+                    )
 
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 }
@@ -81,7 +84,8 @@ class GpsTracker(val context: Context): Service(), LocationListener {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions((context as Activity?)!!,
+            ActivityCompat.requestPermissions(
+                (context as Activity?)!!,
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
@@ -95,9 +99,11 @@ class GpsTracker(val context: Context): Service(), LocationListener {
         locationManager.removeUpdates(this)
     }
 
-    override fun onBind(intent: Intent?): IBinder? { return null }
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
 
-    override fun onLocationChanged(location: Location) { }
+    override fun onLocationChanged(location: Location) {}
 
-    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) { }
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
 }

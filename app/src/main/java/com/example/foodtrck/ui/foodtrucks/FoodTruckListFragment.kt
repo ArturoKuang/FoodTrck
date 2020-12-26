@@ -2,7 +2,6 @@ package com.example.foodtrck.ui.foodtrucks
 
 import android.content.Context
 import android.location.Location
-import android.location.LocationListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +19,8 @@ import com.example.foodtrck.utils.autoCleared
 import com.example.foodtrck.viewmodel.ARG_REGION_NAME
 import com.example.foodtrck.viewmodel.FoodTrucksViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.*
-
+import timber.log.Timber
 
 @AndroidEntryPoint
 class FoodTruckListFragment() : ToolbarFragment() {
@@ -63,16 +61,16 @@ class FoodTruckListFragment() : ToolbarFragment() {
         val regionName = region.capitalize(Locale.ROOT)
         setToolbar(regionName, true)
 
-        binding.chipGroup.setOnCheckedChangeListener { _, checkedId  ->
-            when(checkedId) {
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
                 R.id.chip_distance -> {
-                    if(currentLocation == null) {
+                    if (currentLocation == null) {
                         return@setOnCheckedChangeListener
                     }
 
                     val distanceSortedList = foodtruckList.sortedBy { foodTruck ->
                         val distance = foodTruck.distanceAwayFrom(currentLocation!!)
-                        if(distance == -1f) {
+                        if (distance == -1f) {
                             return@sortedBy Float.MAX_VALUE
                         }
                         return@sortedBy distance
@@ -101,7 +99,12 @@ class FoodTruckListFragment() : ToolbarFragment() {
         val leftRightSpacing = resources.getDimensionPixelSize(R.dimen.keyline_5)
 
         val itemDecoration =
-            SpaceItemDecoration(leftRightSpacing, bottomTopSpacing, leftRightSpacing, bottomTopSpacing)
+            SpaceItemDecoration(
+                leftRightSpacing,
+                bottomTopSpacing,
+                leftRightSpacing,
+                bottomTopSpacing
+            )
 
         binding.foodTrucksRv.layoutManager = LinearLayoutManager(requireContext())
         binding.foodTrucksRv.adapter = adapter
@@ -109,27 +112,30 @@ class FoodTruckListFragment() : ToolbarFragment() {
     }
 
     private fun subscribeUI() {
-        viewModel.foodTruckList.observe(viewLifecycleOwner, { result ->
-            when (result.status) {
-                Resource.Status.SUCCESS -> {
-                    result.data?.let { foodTruckResponse ->
-                        val list: List<FoodTruck>? =
-                            foodTruckResponse.vendors?.values?.toList()
+        viewModel.foodTruckList.observe(
+            viewLifecycleOwner,
+            { result ->
+                when (result.status) {
+                    Resource.Status.SUCCESS -> {
+                        result.data?.let { foodTruckResponse ->
+                            val list: List<FoodTruck>? =
+                                foodTruckResponse.vendors?.values?.toList()
 
-                        if (list != null) {
-                            foodtruckList = list
+                            if (list != null) {
+                                foodtruckList = list
+                            }
+                            adapter.updateData(list)
                         }
-                        adapter.updateData(list)
                     }
+
+                    Resource.Status.ERROR ->
+                        Timber.d(result.message)
+
+                    Resource.Status.LOADING ->
+                        binding.progressBar.visibility = View.VISIBLE
                 }
-
-                Resource.Status.ERROR ->
-                    Timber.d(result.message)
-
-                Resource.Status.LOADING ->
-                    binding.progressBar.visibility = View.VISIBLE
             }
-        })
+        )
     }
 
     companion object {

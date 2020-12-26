@@ -21,9 +21,9 @@ class FoodTrucksViewModel @ViewModelInject constructor(
     val foodTruckList: LiveData<Resource<FoodTruckResponse>> = savedStateHandle
         .getLiveData<String>(ARG_REGION_NAME)
         .switchMap {
-        fetchFoodTrucks(it)
-        _foodTruckList
-    }
+            fetchFoodTrucks(it)
+            _foodTruckList
+        }
 
     private fun fetchFoodTrucks(regionName: String) {
         viewModelScope.launch {

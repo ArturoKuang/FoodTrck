@@ -10,12 +10,12 @@ import com.example.foodtrck.data.model.Region
 import com.example.foodtrck.data.remote.GooglePlaceRemoteDataSource
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
 import com.example.foodtrck.utils.Resource
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.transform
-import javax.inject.Inject
 
 class StreetFoodRepository @Inject constructor(
     private val googlePlaceRemoteDataSource: GooglePlaceRemoteDataSource,
@@ -30,14 +30,14 @@ class StreetFoodRepository @Inject constructor(
             emit(Resource.loading())
 
             val result = streetFoodRemoteDataSource.getRegions()
-            if(result.status == Resource.Status.SUCCESS) {
+            if (result.status == Resource.Status.SUCCESS) {
                 result.data?.let { regionList ->
 
                     var newRegions: List<Region> = regionList
-                    if(regionsCache?.data != null) {
+                    if (regionsCache?.data != null) {
                         newRegions = regionList.filterNot { region ->
                             for (oldRegion in regionsCache.data) {
-                                if(oldRegion.id == region.id)
+                                if (oldRegion.id == region.id)
                                     return@filterNot true
                             }
                             false
@@ -48,7 +48,10 @@ class StreetFoodRepository @Inject constructor(
                         val name = region.nameLong ?: region.name
                         val location = "${region.latitude},${region.longitude}"
 
-                        val googlePlaceResponse = googlePlaceRemoteDataSource.searchPhotos(name, location)
+                        val googlePlaceResponse = googlePlaceRemoteDataSource.searchPhotos(
+                            name,
+                            location
+                        )
                         val placePhotos = googlePlaceResponse.data?.results?.first()
                         val placePhotoItem = placePhotos?.photos?.first()
 
@@ -60,7 +63,6 @@ class StreetFoodRepository @Inject constructor(
             }
 
             emit(fetchRegionsCache())
-
         }.flowOn(Dispatchers.IO)
     }
 
@@ -71,7 +73,7 @@ class StreetFoodRepository @Inject constructor(
         }.transform {
             val result = streetFoodRemoteDataSource.getFoodTrucks(region)
 
-            if(result.status == Resource.Status.SUCCESS) {
+            if (result.status == Resource.Status.SUCCESS) {
                 result.data?.vendors?.values.let { data ->
                     val list = data?.toList()
                     if (list != null) {
@@ -88,7 +90,6 @@ class StreetFoodRepository @Inject constructor(
             emitSource(foodTruckDao.get(foodTruckID))
         }
 
-
     private fun saveToFoodTruckDatabase(data: List<FoodTruck>) {
         foodTruckDao.deleteAll(data)
         foodTruckDao.insertAll(data)
@@ -103,9 +104,8 @@ class StreetFoodRepository @Inject constructor(
         regionDao.insertAll(data)
     }
 
-    private fun fetchRegionsCache() : Resource<List<Region>>? =
+    private fun fetchRegionsCache(): Resource<List<Region>>? =
         regionDao.getAll()?.let {
             Resource.success(it)
-    }
-
+        }
 }

@@ -1,17 +1,14 @@
 package com.example.foodtrck.ui.foodtruck
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodtrck.R
-import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.databinding.FoodtruckDetailsFragmentBinding
 import com.example.foodtrck.ui.SpaceItemDecoration
 import com.example.foodtrck.ui.ToolbarFragment
@@ -22,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 const val ARG_FOODTRUCK = "arg_foodtruck"
 
 @AndroidEntryPoint
-class FoodTruckFragment: ToolbarFragment() {
+class FoodTruckFragment : ToolbarFragment() {
 
     private var binding: FoodtruckDetailsFragmentBinding by autoCleared()
     private val foodViewModel: FoodTruckViewModel by viewModels()
@@ -49,22 +46,25 @@ class FoodTruckFragment: ToolbarFragment() {
     }
 
     private fun subscribeUI() {
-        foodViewModel.foodTruck.observe(viewLifecycleOwner, { foodTruck ->
-            Glide.with(this)
-                .load(foodTruck?.images?.header?.first())
-                .placeholder(R.drawable.ic_foodtruck_placeholder)
-                .into(binding.foodTruckDetailsImage)
+        foodViewModel.foodTruck.observe(
+            viewLifecycleOwner,
+            { foodTruck ->
+                Glide.with(this)
+                    .load(foodTruck?.images?.header?.first())
+                    .placeholder(R.drawable.ic_foodtruck_placeholder)
+                    .into(binding.foodTruckDetailsImage)
 
-            setToolbar(foodTruck?.name ?: "", true)
+                setToolbar(foodTruck?.name ?: "", true)
 
-            binding.foodTruckDetailsPhone.text = foodTruck?.phone
-            binding.foodTruckDetailsWebsite.text = foodTruck?.url
-            binding.rating.text = foodTruck?.rating.toString()
-            binding.foodTruckDetailsEmail.text = foodTruck?.email
-            binding.foodTruckDetailsDescription.text = foodTruck?.description
+                binding.foodTruckDetailsPhone.text = foodTruck?.phone
+                binding.foodTruckDetailsWebsite.text = foodTruck?.url
+                binding.rating.text = foodTruck?.rating.toString()
+                binding.foodTruckDetailsEmail.text = foodTruck?.email
+                binding.foodTruckDetailsDescription.text = foodTruck?.description
 
-            scheduleAdapter.updateData(foodTruck?.schedule)
-        })
+                scheduleAdapter.updateData(foodTruck?.schedule)
+            }
+        )
     }
 
     private fun setUpRecyclerView() {

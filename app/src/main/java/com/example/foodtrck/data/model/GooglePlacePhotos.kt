@@ -1,5 +1,5 @@
 package com.example.foodtrck.data.model
 
-data class GooglePlacePhotos (
+data class GooglePlacePhotos(
     val photos: List<GooglePlacePhotoItem>
 )

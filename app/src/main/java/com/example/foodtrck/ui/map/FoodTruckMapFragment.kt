@@ -77,22 +77,29 @@ class FoodTruckMapFragment :
         hideToolbar()
 
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.body)
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when(newState) {
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        setAnimationDrawable(binding.bottomSheet.body.peek, R.drawable.animated_bottom_sheet_peek_down)
+        bottomSheetBehavior.addBottomSheetCallback(
+            object :
+                BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    when (newState) {
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+                            setAnimationDrawable(
+                                binding.bottomSheet.body.peek,
+                                R.drawable.animated_bottom_sheet_peek_down
+                            )
+                        }
+                        BottomSheetBehavior.STATE_COLLAPSED -> {
+                            setAnimationDrawable(
+                                binding.bottomSheet.body.peek,
+                                R.drawable.animated_bottom_sheet_peek_up
+                            )
+                        }
+                        else -> {}
                     }
-
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        setAnimationDrawable(binding.bottomSheet.body.peek, R.drawable.animated_bottom_sheet_peek_up)
-                    }
-                    else -> {}
                 }
+                override fun onSlide(bottomSheet: View, slideOffset: Float) { }
             }
-            override fun onSlide(bottomSheet: View, slideOffset: Float) { }
-        })
+        )
     }
 
     private fun setAnimationDrawable(view: ImageView, @DrawableRes resID: Int) {
@@ -149,31 +156,34 @@ class FoodTruckMapFragment :
     }
 
     private fun placeFoodtruckMarkers() {
-        queryRegion()?.observe(viewLifecycleOwner, { result ->
-            if (result.status == Resource.Status.SUCCESS) {
-                result.data?.let { foodtruckResponse ->
-                    val foodtruckList: List<FoodTruck>? =
-                        foodtruckResponse.vendors?.values?.toList()
+        queryRegion()?.observe(
+            viewLifecycleOwner,
+            { result ->
+                if (result.status == Resource.Status.SUCCESS) {
+                    result.data?.let { foodtruckResponse ->
+                        val foodtruckList: List<FoodTruck>? =
+                            foodtruckResponse.vendors?.values?.toList()
 
-                    foodtruckList?.forEach { foodtruck ->
-                        val openFoodTruckSchedule: ScheduleInfo? = foodtruck.getCurrentSchedule()
-                        if (openFoodTruckSchedule != null) {
-                            val foodTruckPosition = LatLng(
-                                openFoodTruckSchedule.latitude,
-                                openFoodTruckSchedule.longitude
-                            )
-                            val marker: Marker = map.addMarker(
-                                MarkerOptions()
-                                    .position(foodTruckPosition)
-                                    .title(foodtruck.name)
-                            )
+                        foodtruckList?.forEach { foodtruck ->
+                            val openFoodTruckSchedule: ScheduleInfo? = foodtruck.getCurrentSchedule()
+                            if (openFoodTruckSchedule != null) {
+                                val foodTruckPosition = LatLng(
+                                    openFoodTruckSchedule.latitude,
+                                    openFoodTruckSchedule.longitude
+                                )
+                                val marker: Marker = map.addMarker(
+                                    MarkerOptions()
+                                        .position(foodTruckPosition)
+                                        .title(foodtruck.name)
+                                )
 
-                            markerFoodtruckTable[marker] = foodtruck
+                                markerFoodtruckTable[marker] = foodtruck
+                            }
                         }
                     }
                 }
             }
-        })
+        )
     }
 
     private fun queryRegion(): LiveData<Resource<FoodTruckResponse>>? {
@@ -204,7 +214,6 @@ class FoodTruckMapFragment :
         }
     }
 
-
     override fun onPause() {
         binding.foodtruckMap.onPause()
         super.onPause()
@@ -227,7 +236,7 @@ class FoodTruckMapFragment :
     companion object {
         const val TAG = "FOODTRUCK_MAP_FRAGMENT"
         private const val DEFAULT_ZOOM = 10f
-        private const val SEARCH_RADIUS = 50f //MILES
+        private const val SEARCH_RADIUS = 50f // MILES
 
         fun newInstance(): FoodTruckMapFragment {
             return FoodTruckMapFragment()

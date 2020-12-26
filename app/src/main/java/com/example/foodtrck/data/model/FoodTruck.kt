@@ -29,7 +29,7 @@ data class FoodTruck(
         var header: List<String>
     )
 
-    //returns Miles, and -1 if food truck is not open
+    // returns Miles, and -1 if food truck is not open
     fun distanceAwayFrom(location: Location): Float {
         val foodtruckLocation: Location = getCurrentSchedule()?.getLocation() ?: return -1f
         var distance = location.distanceTo(foodtruckLocation)
@@ -43,8 +43,8 @@ data class FoodTruck(
 
         for (scheduleInfo in schedule) {
             val calenderDay = convertDateToCalender(scheduleInfo.getStartDate())
-            if(dayAndMonthEqual(today, calenderDay)) {
-               currentSchedule = scheduleInfo
+            if (dayAndMonthEqual(today, calenderDay)) {
+                currentSchedule = scheduleInfo
             }
         }
 
@@ -53,7 +53,7 @@ data class FoodTruck(
 
     private fun dayAndMonthEqual(a: Calendar, b: Calendar): Boolean {
         return a.get(Calendar.DATE) == b.get(Calendar.DATE) &&
-                a.get(Calendar.MONTH) == b.get(Calendar.MONTH)
+            a.get(Calendar.MONTH) == b.get(Calendar.MONTH)
     }
 
     private fun convertDateToCalender(date: Date): Calendar {
@@ -62,4 +62,3 @@ data class FoodTruck(
         return cal
     }
 }
-

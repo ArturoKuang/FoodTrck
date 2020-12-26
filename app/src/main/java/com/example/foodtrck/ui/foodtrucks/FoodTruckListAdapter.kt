@@ -1,6 +1,5 @@
 package com.example.foodtrck.ui.foodtrucks
 
-import android.content.res.Resources
 import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
@@ -10,23 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.foodtrck.R
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.model.ScheduleInfo
 import com.example.foodtrck.databinding.FoodtruckListItemBinding
-import com.example.foodtrck.utils.convertToMiles
-import com.example.foodtrck.utils.convertToRoundedMiles
-import kotlinx.android.synthetic.main.foodtruck_list_item.view.*
-import timber.log.Timber
 import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.foodtruck_list_item.view.*
 
 class FoodTruckListAdapter(
     private var listener: FoodTruckItemListener,
-    private val currentLocation: Location?)
-    : RecyclerView.Adapter<FoodTruckListAdapter.FoodTruckListViewHolder>() {
+    private val currentLocation: Location?
+) :
+    RecyclerView.Adapter<FoodTruckListAdapter.FoodTruckListViewHolder>() {
 
-    interface  FoodTruckItemListener {
+    interface FoodTruckItemListener {
         fun onClickFoodTruck(foodTruckID: String, view: View?)
     }
 
@@ -40,11 +36,11 @@ class FoodTruckListAdapter(
         val binding: FoodtruckListItemBinding =
             FoodtruckListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return  FoodTruckListViewHolder(binding, listener, currentLocation)
+        return FoodTruckListViewHolder(binding, listener, currentLocation)
     }
 
     fun updateData(newList: List<FoodTruck>?) {
-        if(newList == null) {
+        if (newList == null) {
             return
         }
 
@@ -66,15 +62,18 @@ class FoodTruckListAdapter(
     class FoodTruckListViewHolder(
         private val itemBinding: FoodtruckListItemBinding,
         private val listener: FoodTruckItemListener,
-        private val currentLocation: Location?)
-        : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
+        private val currentLocation: Location?
+    ) :
+        RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         private lateinit var foodTruck: FoodTruck
         private val open = "open"
         private val closed = "closed"
         private val primaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.red_500)
-        private val secondaryColor = ContextCompat.getColor(itemBinding.root.context, R.color.blue_grey_500)
-
+        private val secondaryColor = ContextCompat.getColor(
+            itemBinding.root.context,
+            R.color.blue_grey_500
+        )
 
         init {
             itemBinding.root.setOnClickListener(this)
@@ -93,33 +92,36 @@ class FoodTruckListAdapter(
                 itemBinding.foodtruckMilesAway.visibility = View.VISIBLE
                 val miles = distanceAwayFrom(foodTruck)
 
-                if(miles != -1f) {
-                    val distance =  "Miles: $miles"
+                if (miles != -1f) {
+                    val distance = "Miles: $miles"
                     itemBinding.foodtruckMilesAway.text = distance
                     itemBinding.foodtruckMilesAway.setTextColor(primaryColor)
                 }
-
             } else {
                 itemBinding.foodtruckOpen.text = closed
                 itemBinding.foodtruckOpen.setTextColor(secondaryColor)
                 itemBinding.foodtruckMilesAway.visibility = View.INVISIBLE
             }
 
-            if(item.images?.header?.first() != null || item.images?.logo_small != null) {
+            if (item.images?.header?.first() != null || item.images?.logo_small != null) {
                 itemBinding.foodtruckImage.scaleType = ImageView.ScaleType.CENTER_CROP
             } else {
                 itemBinding.foodtruckImage.scaleType = ImageView.ScaleType.FIT_CENTER
             }
 
             Glide.with(itemBinding.root)
-                .load(item.images?.header?.first() ?: item.images?.logo_small ?: R.drawable.ic_foodtruck_placeholder)
+                .load(
+                    item.images?.header?.first()
+                        ?: item.images?.logo_small
+                        ?: R.drawable.ic_foodtruck_placeholder
+                )
                 .into(itemBinding.foodtruckImage)
 
             ViewCompat.setTransitionName(itemBinding.foodtruckImage, foodTruck.id)
         }
 
         private fun distanceAwayFrom(foodTruck: FoodTruck): Float {
-            if(currentLocation == null) {
+            if (currentLocation == null) {
                 return -1f
             }
 

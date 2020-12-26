@@ -29,5 +29,3 @@ data class ScheduleInfo(
         return createLocation(latitude, longitude)
     }
 }
-
-

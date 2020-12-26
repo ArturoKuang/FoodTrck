@@ -9,5 +9,6 @@ interface GooglePlaceService {
     @GET("textsearch/json?")
     suspend fun searchPlace(
         @Query("query") query: String,
-        @Query("location") location: String) : Response<GooglePlaceResponse>
+        @Query("location") location: String
+    ): Response<GooglePlaceResponse>
 }

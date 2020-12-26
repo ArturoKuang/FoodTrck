@@ -7,7 +7,6 @@ import com.example.foodtrck.data.local.FoodTruckDao
 import com.example.foodtrck.data.local.FoodTruckDatabase
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.local.RegionDatabase
-import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.remote.*
 import com.example.foodtrck.data.repository.StreetFoodRepository
 import com.example.foodtrck.utils.GooglePlaceRetrofit
@@ -19,12 +18,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.text.DateFormat
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.DateFormat
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -33,7 +32,7 @@ object AppModule {
     @Singleton
     @Provides
     @StreetFoodRetrofit
-    fun provideStreetFoodRetrofit(gson: Gson) : Retrofit {
+    fun provideStreetFoodRetrofit(gson: Gson): Retrofit {
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BASIC
 
@@ -52,7 +51,9 @@ object AppModule {
     @Provides
     @GooglePlaceRetrofit
     fun provideGooglePlaceRetrofit(
-        gson: Gson, googlePlaceInterceptor: GooglePlaceInterceptor): Retrofit {
+        gson: Gson,
+        googlePlaceInterceptor: GooglePlaceInterceptor
+    ): Retrofit {
 
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BASIC
@@ -90,7 +91,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRegionDatabase(@ApplicationContext appContext: Context) : RegionDatabase {
+    fun provideRegionDatabase(@ApplicationContext appContext: Context): RegionDatabase {
         return Room.databaseBuilder(
             appContext,
             RegionDatabase::class.java,
@@ -124,8 +125,14 @@ object AppModule {
         googlePlaceRemoteDataSource: GooglePlaceRemoteDataSource,
         streetFoodRemoteDataSource: StreetFoodRemoteDataSource,
         regionDao: RegionDao,
-        foodTruckDao: FoodTruckDao) : StreetFoodRepository {
+        foodTruckDao: FoodTruckDao
+    ): StreetFoodRepository {
 
-        return StreetFoodRepository(googlePlaceRemoteDataSource, streetFoodRemoteDataSource, regionDao, foodTruckDao)
+        return StreetFoodRepository(
+            googlePlaceRemoteDataSource,
+            streetFoodRemoteDataSource,
+            regionDao,
+            foodTruckDao
+        )
     }
 }
