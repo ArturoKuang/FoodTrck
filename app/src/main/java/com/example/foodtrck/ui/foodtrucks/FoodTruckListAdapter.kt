@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodtrck.R
@@ -44,9 +45,12 @@ class FoodTruckListAdapter(
             return
         }
 
+        val diffCallback = FoodTruckListDiffCallback(foodtrucks, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         foodtrucks.clear()
         foodtrucks.addAll(newList)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun getItemCount(): Int =
@@ -124,7 +128,6 @@ class FoodTruckListAdapter(
             if (currentLocation == null) {
                 return -1f
             }
-
             return foodTruck.distanceAwayFrom(currentLocation)
         }
 

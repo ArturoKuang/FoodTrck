@@ -75,22 +75,27 @@ class FoodTruckListFragment() : ToolbarFragment() {
                         }
                         return@sortedBy distance
                     }
-                    adapter.updateData(distanceSortedList)
+                    updateList(distanceSortedList)
                 }
                 R.id.chip_rating -> {
                     val ratingSortedList = foodtruckList.sortedByDescending { foodTruck ->
                         foodTruck.rating
                     }
-                    adapter.updateData(ratingSortedList)
+                    updateList(ratingSortedList)
                 }
                 R.id.chip_name -> {
                     val nameSortedList = foodtruckList.sortedBy { foodTruck ->
                         foodTruck.name
                     }
-                    adapter.updateData(nameSortedList)
+                    updateList(nameSortedList)
                 }
             }
         }
+    }
+
+    private fun updateList(list: List<FoodTruck>) {
+        adapter.updateData(list)
+        binding.foodTrucksRv.scrollToPosition(0)
     }
 
     private fun setUpRecycleViewer() {
