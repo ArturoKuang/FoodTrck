@@ -6,6 +6,7 @@ import com.example.foodtrck.data.local.FoodTruckDao
 import com.example.foodtrck.data.local.RegionDao
 import com.example.foodtrck.data.model.FoodTruck
 import com.example.foodtrck.data.model.FoodTruckResponse
+import com.example.foodtrck.data.model.GooglePlacePhotoItem
 import com.example.foodtrck.data.model.Region
 import com.example.foodtrck.data.remote.GooglePlaceRemoteDataSource
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
@@ -23,6 +24,7 @@ class StreetFoodRepository @Inject constructor(
     private val regionDao: RegionDao,
     private val foodTruckDao: FoodTruckDao
 ) {
+
     suspend fun fetchRegions(): Flow<Resource<List<Region>>?> {
         return flow {
             val regionsCache = fetchRegionsCache()
@@ -33,29 +35,11 @@ class StreetFoodRepository @Inject constructor(
             if (result.status == Resource.Status.SUCCESS) {
                 result.data?.let { regionList ->
 
-                    var newRegions: List<Region> = regionList
-                    if (regionsCache?.data != null) {
-                        newRegions = regionList.filterNot { region ->
-                            for (oldRegion in regionsCache.data) {
-                                if (oldRegion.id == region.id)
-                                    return@filterNot true
-                            }
-                            false
-                        }
-                    }
+                    val newRegions: List<Region> =
+                        diffList(regionList, regionsCache?.data) ?: regionList
 
-                    for (region in newRegions) {
-                        val name = region.nameLong ?: region.name
-                        val location = "${region.latitude},${region.longitude}"
-
-                        val googlePlaceResponse = googlePlaceRemoteDataSource.searchPhotos(
-                            name,
-                            location
-                        )
-                        val placePhotos = googlePlaceResponse.data?.results?.first()
-                        val placePhotoItem = placePhotos?.photos?.first()
-
-                        region.image = placePhotoItem
+                    newRegions.forEach { region ->
+                        region.image = createGooglePlaceUri(region)
                     }
 
                     saveRegionsDatabase(newRegions)
@@ -64,6 +48,33 @@ class StreetFoodRepository @Inject constructor(
 
             emit(fetchRegionsCache())
         }.flowOn(Dispatchers.IO)
+    }
+
+    private fun diffList(newList: List<Region>?, oldList: List<Region>?): List<Region>? {
+        if (newList == null || oldList == null) {
+            return null
+        }
+
+        return newList.filterNot { region ->
+            for(oldRegion in oldList) {
+                if(oldRegion.id == region.id)
+                    return@filterNot true
+            }
+            return@filterNot false
+        }
+    }
+
+    private suspend fun createGooglePlaceUri(region: Region): GooglePlacePhotoItem? {
+        val name: String = region.nameLong ?: region.name
+        val location = "${region.latitude}, ${region.longitude}"
+
+        val googlePlaceResponse = googlePlaceRemoteDataSource.searchPhotos(
+            name,
+            location
+        )
+
+        val placePhotos = googlePlaceResponse.data?.results?.first()
+        return placePhotos?.photos?.first()
     }
 
     suspend fun fetchFoodTrucks(region: String): Flow<Resource<FoodTruckResponse>?> {

@@ -30,7 +30,9 @@ data class FoodTruck(
         var header: List<String>
     )
 
-    // returns Miles, and -1 if food truck is not open
+    // returns the distance between a location and
+    // location of the foodtruck for the current day
+    // In cases, when the foodtruck is not open or does not have a valid location return -1
     fun distanceAwayFrom(location: Location): Float {
         val foodtruckLocation: Location = getCurrentSchedule()?.getLocation() ?: return -1f
         var distance = location.distanceTo(foodtruckLocation)

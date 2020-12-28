@@ -7,12 +7,12 @@ import com.example.foodtrck.utils.convertToJson
 
 class RegionConverter {
     @TypeConverter
-    fun fromGooglePlacePhotoItemString(value: String?): GooglePlacePhotoItem {
+    fun fromGooglePlacePhotoItemJson(value: String?): GooglePlacePhotoItem {
         return convertJsonToObj(value)
     }
 
     @TypeConverter
-    fun googlePlacePhotoItemToString(googlePlacePhotoItem: GooglePlacePhotoItem?): String? {
+    fun googlePlacePhotoItemToJson(googlePlacePhotoItem: GooglePlacePhotoItem?): String? {
         return convertToJson(googlePlacePhotoItem)
     }
 }

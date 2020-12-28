@@ -10,31 +10,30 @@ import com.google.gson.reflect.TypeToken
 
 class FoodTruckConverter {
     @TypeConverter
-    fun fromImagesString(value: String?): FoodTruck.Images? {
+    fun fromImagesJson(value: String?): FoodTruck.Images? {
         return convertJsonToObj(value)
     }
 
     @TypeConverter
-    fun imagesToString(images: FoodTruck.Images?): String? {
+    fun imagesToJson(images: FoodTruck.Images?): String? {
         return convertToJson(images)
     }
 
     @TypeConverter
-    fun fromScheduleInfoListString(value: String?): List<ScheduleInfo> {
+    fun fromScheduleInfoListJson(value: String?): List<ScheduleInfo> {
         val gson = Gson()
         if (value.isNullOrBlank()) {
             return emptyList()
         }
 
-        val test: List<ScheduleInfo> = gson.fromJson(
+        return gson.fromJson(
             value,
             object : TypeToken<List<ScheduleInfo>>() {}.type
         )
-        return test
     }
 
     @TypeConverter
-    fun scheduleInfoListToString(scheduleInfo: List<ScheduleInfo>): String? {
+    fun scheduleInfoListToJson(scheduleInfo: List<ScheduleInfo>): String? {
         return convertToJson(scheduleInfo)
     }
 }
