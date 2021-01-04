@@ -3,7 +3,6 @@ package com.example.foodtrck.data.remote
 import com.example.foodtrck.utils.Resource
 import java.lang.Exception
 import retrofit2.Response
-import timber.log.Timber
 
 abstract class BaseDataSource {
 

@@ -41,7 +41,6 @@ class StreetFoodRepository @Inject constructor(
                     newRegions.forEach { region ->
                         region.image = createGooglePlaceUri(region)
                     }
-
                     saveRegionsDatabase(newRegions)
                 }
             }
@@ -56,8 +55,8 @@ class StreetFoodRepository @Inject constructor(
         }
 
         return newList.filterNot { region ->
-            for(oldRegion in oldList) {
-                if(oldRegion.id == region.id)
+            for (oldRegion in oldList) {
+                if (oldRegion.id == region.id)
                     return@filterNot true
             }
             return@filterNot false
