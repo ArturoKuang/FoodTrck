@@ -54,6 +54,7 @@ GOOGLE_MAPS_API_KEY=XXXXXXXXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXX
 ## Architecture
 
 <img src="./docs/mvvm.png"/>
+
 ## Icon sources:
 
 <a href="https://www.vecteezy.com/free-vector/illustration">Illustration Vectors by Vecteezy</a>
