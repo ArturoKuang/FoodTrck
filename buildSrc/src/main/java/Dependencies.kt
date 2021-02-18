@@ -21,12 +21,14 @@ object Versions {
         const val retrofit = "2.7.2"
         const val gson = "2.8.5"
         const val logging_interceptor = "4.9.0"
+        const val easypermissions = "3.0.0"
     }
 
     object Google {
         const val hilt = "2.28.1-alpha"
         const val hilt_platform = "1.0.0-alpha02"
         const val maps = "17.0.0"
+        const val location = "17.1.0"
     }
 }
 
@@ -56,7 +58,9 @@ object Dependencies {
     )
     val google = arrayOf(
         "com.google.dagger:hilt-android:${Versions.Google.hilt}",
-        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.Google.hilt_platform}"
+        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.Google.hilt_platform}",
+        "com.google.android.gms:play-services-maps:${Versions.Google.maps}",
+        "com.google.android.gms:play-services-location:${Versions.Google.location}"
     )
     val libraries = arrayOf(
         "com.github.bumptech.glide:glide:${Versions.Libraries.glide}",
@@ -66,7 +70,8 @@ object Dependencies {
         "com.squareup.retrofit2:retrofit:${Versions.Libraries.retrofit}",
         "com.squareup.retrofit2:converter-gson:${Versions.Libraries.retrofit}",
         "com.google.code.gson:gson:${Versions.Libraries.gson}",
-        "com.squareup.okhttp3:logging-interceptor:${Versions.Libraries.logging_interceptor}"
+        "com.squareup.okhttp3:logging-interceptor:${Versions.Libraries.logging_interceptor}",
+        "pub.devrel:easypermissions:${Versions.Libraries.easypermissions}"
         )
 
     val kotlinAnnotations = arrayOf(
