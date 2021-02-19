@@ -30,6 +30,12 @@ object Versions {
         const val maps = "17.0.0"
         const val location = "17.1.0"
     }
+
+    object Test {
+        const val jUnit = "4.12"
+        const val core = "1.0.0"
+        const val mockito_core = "1.10.19"
+    }
 }
 
 object Dependencies {
@@ -79,5 +85,11 @@ object Dependencies {
         "androidx.hilt:hilt-compiler:${Versions.Google.hilt_platform}",
         "com.github.bumptech.glide:compiler:${Versions.Libraries.glide}",
         "androidx.room:room-compiler:${Versions.Libraries.room}"
+    )
+
+    val test = arrayOf(
+        "junit:junit:${Versions.Test.jUnit}",
+        "androidx.test:core:${Versions.Test.core}",
+        "org.mockito:mockito-core:${Versions.Test.mockito_core}"
     )
 }
