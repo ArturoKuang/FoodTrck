@@ -14,6 +14,7 @@ fun createLocation(latitude: Double, longitude: Double): Location {
 val conversionRateMiles: Float
     get() = 1609F
 
+//  Kilometer to miles
 fun convertToMiles(distance: Float): Float {
     return (distance / conversionRateMiles)
 }

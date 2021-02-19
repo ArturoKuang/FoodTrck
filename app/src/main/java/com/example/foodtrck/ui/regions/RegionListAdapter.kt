@@ -64,7 +64,6 @@ class RegionListAdapter(private var listener: RegionItemListener) :
                 itemBinding.titleRegion.text = region
             }
 
-            // Timber.d("PhotoUri: ${item.image?.photoUri}")
             Glide.with(itemBinding.root)
                 .load(item.image?.photoUri)
                 .transform(CenterCrop())

@@ -235,19 +235,8 @@ class FoodTruckMapFragment :
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    companion object {
-        const val TAG = "FOODTRUCK_MAP_FRAGMENT"
-        private const val DEFAULT_ZOOM = 10f
-        private const val SEARCH_RADIUS = 50f // MILES
-
-        fun newInstance(): FoodTruckMapFragment {
-            return FoodTruckMapFragment()
-        }
-    }
-
     override fun onMarkerClick(marker: Marker?): Boolean {
         val foodtruck = markerFoodtruckTable[marker]
-        Timber.d("Marker OnClick() $foodtruck")
 
         binding.bottomSheet.body.visibility = View.VISIBLE
         Glide.with(this)
@@ -262,5 +251,15 @@ class FoodTruckMapFragment :
         binding.bottomSheet.body.food_truck_details_description.text = foodtruck?.description
 
         return false
+    }
+
+    companion object {
+        const val TAG = "FOODTRUCK_MAP_FRAGMENT"
+        private const val DEFAULT_ZOOM = 10f
+        private const val SEARCH_RADIUS = 50f // MILES
+
+        fun newInstance(): FoodTruckMapFragment {
+            return FoodTruckMapFragment()
+        }
     }
 }
