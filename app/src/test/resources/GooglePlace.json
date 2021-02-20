@@ -1,0 +1,43 @@
+{
+  "html_attributions": [],
+  "results": [
+    {
+      "formatted_address": "Boston, MA, USA",
+      "geometry": {
+        "location": {
+          "lat": 42.3600825,
+          "lng": -71.0588801
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 42.40081989999999,
+            "lng": -70.749455
+          },
+          "southwest": {
+            "lat": 42.22788,
+            "lng": -71.191113
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+      "name": "Boston",
+      "photos": [
+        {
+          "height": 452,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/108401632931085202406\">A Google User</a>"
+          ],
+          "photo_reference": "ATtYBwJMG2p5cpfs7Exwo4Ec4TER2Cb7DJTd21XmGWXSOABBm1fy8whDbfplVT00gxHmDUHVbP8h4NidKjrD_1bGWHshtkxIrM0m0QyIhtaDICO4GyS3IhF3Ys01m03HSnpNtR9l8M6grJ6riZkBjcUnyQmCf-pKqIeP1qvrW3dwgsZQkb7B",
+          "width": 679
+        }
+      ],
+      "place_id": "ChIJGzE9DS1l44kRoOhiASS_fHg",
+      "reference": "ChIJGzE9DS1l44kRoOhiASS_fHg",
+      "types": [
+        "locality",
+        "political"
+      ]
+    }
+  ],
+  "status": "OK"
+}
