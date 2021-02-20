@@ -1,0 +1,47 @@
+[
+  {
+    "identifier": "abbotsford",
+    "name": "Abbotsford",
+    "name_long": "Abbotsford, BC",
+    "time_zone": "America/Vancouver",
+    "latitude": 49.0504377,
+    "longitude": -122.3044697,
+    "country": "ca",
+    "example_location": {
+      "address": "S Fraser Way & Trethewey St",
+      "latitude": 49.051676,
+      "longitude": -122.326484
+    },
+    "regions": []
+  },
+  {
+    "identifier": "amsterdam-ny",
+    "name": "Amsterdam",
+    "name_long": "Amsterdam, NY",
+    "time_zone": "America/New_York",
+    "latitude": 42.937546063804,
+    "longitude": -74.190823048836,
+    "country": "us",
+    "example_location": {
+      "address": "Guy Park Ave & Kimball St",
+      "latitude": 42.94018513,
+      "longitude": -74.19314048
+    },
+    "regions": []
+  },
+  {
+    "identifier": "ballarat",
+    "name": "Ballarat",
+    "name_long": "Ballarat, Australia",
+    "time_zone": "Australia/Melbourne",
+    "latitude": -37.497362927445,
+    "longitude": 143.83544921875,
+    "country": "au",
+    "example_location": {
+      "address": "Mair St & Pleasant St N",
+      "latitude": -37.557606,
+      "longitude": 143.839416
+    },
+    "regions": []
+  }
+]

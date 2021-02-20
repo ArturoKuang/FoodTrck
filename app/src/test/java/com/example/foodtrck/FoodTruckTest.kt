@@ -18,11 +18,11 @@ class FoodTruckTest {
     private val trimmedDate = Calendar.getInstance().timeInMillis/1000
     private val mockSchedules = listOf(
         ScheduleInfo(
-            trimmedDate,
-            trimmedDate,
-            "Boston, MA",
-            42.35286711,
-            -71.05556734),
+            start = trimmedDate,
+            end = trimmedDate,
+            display = "Boston, MA",
+            latitude = 42.35286711,
+            longitude = -71.05556734),
 
         ScheduleInfo(
             1614096000,
@@ -42,16 +42,16 @@ class FoodTruckTest {
     private val mockLocation = Location(LocationManager.GPS_PROVIDER)
 
     private val foodtruck = FoodTruck(
-        "0",
-        0,
-        "Good FoodTruck",
-        "foodtruck.com",
-        "123-123-123",
-        "foodtruck@truck.com",
-        "this is a good foodtruck",
-        "",
-        null,
-        mockSchedules
+        id = "0",
+        rating = 0,
+        name = "Good FoodTruck",
+        url = "foodtruck.com",
+        phone = "123-123-123",
+        email = "foodtruck@truck.com",
+        description = "this is a good foodtruck",
+        description_short = "",
+        images = null,
+        schedule = mockSchedules
     )
 
     @Before

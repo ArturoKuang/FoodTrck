@@ -1,0 +1,256 @@
+{
+  "metadata": {
+    "ads": [
+      {
+        "banner": {
+          "identifier": "cod-squad",
+          "image_url": "https://cdn.streetfoodapp.com/images/cod-squad/logo/90w_square.png",
+          "image_url_2x": "https://cdn.streetfoodapp.com/images/cod-squad/logo/90w_square@2x.png",
+          "title": "The Cod Squad",
+          "subtitle": "Fresh haddock, clams, scallops, oysters, lobster, calamari, and more!",
+          "show_vendor": "cod-squad"
+        }
+      }
+    ],
+    "new": [
+      "vaz-mac-tex-mex",
+      "tres-latinas",
+      "chick-fil-a",
+      "oath-pizza",
+      "bon-me-10",
+      "bon-me-9",
+      "bon-me-8",
+      "bon-me-7",
+      "the-whoopie-wagon",
+      "bon-me-6"
+    ],
+    "regions": [
+      {
+        "identifier": "boston",
+        "name": "Boston",
+        "time_zone": "America/New_York",
+        "example_location": [],
+        "regions": [
+          {
+            "identifier": "chp",
+            "name": "City Hall Plaza",
+            "time_zone": "America/New_York"
+          },
+          {
+            "identifier": "greenway",
+            "name": "Greenway",
+            "time_zone": "America/New_York"
+          },
+          {
+            "identifier": "sowa",
+            "name": "SoWa Open Market",
+            "time_zone": "America/New_York"
+          }
+        ]
+      }
+    ]
+  },
+  "vendors": {
+    "bon-me": {
+      "description_short": null,
+      "identifier": "bon-me",
+      "name": "Bon Me 1",
+      "region": "boston",
+      "url": "bonmetruck.com",
+      "phone": "(617) 989-9804",
+      "email": "info@bonmetruck.com",
+      "twitter": "bonme",
+      "facebook": null,
+      "instagram": null,
+      "takeout_url": null,
+      "delivery_url": null,
+      "description": "Bold, Fresh, and Fun Asian cuisine.",
+      "rating": 890,
+      "payment_methods": [
+        "cash",
+        "credit_card",
+        "debit_card"
+      ],
+      "promoted": false,
+      "last": {
+        "time": 1613746800,
+        "display": "Dewey Square, Boston",
+        "latitude": 42.35286711,
+        "longitude": -71.05556734
+      },
+      "catering": null,
+      "open": [
+        {
+          "start": 1614009600,
+          "end": 1614025800,
+          "display": "Dewey Square, Boston",
+          "updated": 1551067896,
+          "latitude": 42.35286711,
+          "longitude": -71.05556734
+        },
+        {
+          "start": 1614096000,
+          "end": 1614112200,
+          "display": "Dewey Square, Boston",
+          "updated": 1551067896,
+          "latitude": 42.35286711,
+          "longitude": -71.05556734
+        },
+        {
+          "start": 1614182400,
+          "end": 1614198600,
+          "display": "Dewey Square, Boston",
+          "updated": 1551067896,
+          "latitude": 42.35286711,
+          "longitude": -71.05556734
+        },
+        {
+          "start": 1614268800,
+          "end": 1614285000,
+          "display": "Dewey Square, Boston",
+          "updated": 1551067896,
+          "latitude": 42.35286711,
+          "longitude": -71.05556734
+        },
+        {
+          "start": 1614355200,
+          "end": 1614371400,
+          "display": "Dewey Square, Boston",
+          "updated": 1551067896,
+          "latitude": 42.35286711,
+          "longitude": -71.05556734
+        }
+      ],
+      "open_updated": 1551067896,
+      "rank": 3
+    },
+    "bon-me-10": {
+      "description_short": null,
+      "identifier": "bon-me-10",
+      "name": "Bon Me 10",
+      "region": "boston",
+      "url": "bonmetruck.com",
+      "phone": "(617) 989-9804",
+      "email": "info@bonmetruck.com",
+      "twitter": "bonme",
+      "facebook": null,
+      "instagram": null,
+      "takeout_url": null,
+      "delivery_url": null,
+      "description": "Bold, Fresh, and Fun Asian cuisine.",
+      "rating": 4,
+      "payment_methods": [
+        "cash",
+        "credit_card",
+        "debit_card"
+      ],
+      "promoted": false,
+      "last": {
+        "time": 1613660400,
+        "display": "Boston University",
+        "latitude": 42.34911724,
+        "longitude": -71.10145829
+      },
+      "catering": {
+        "guest_paid_enabled": false,
+        "host_paid_enabled": false
+      },
+      "open": [
+        {
+          "start": 1614096000,
+          "end": 1614106800,
+          "display": "Constant Contact",
+          "updated": 1551067896,
+          "latitude": 42.418609,
+          "longitude": -71.25865925
+        },
+        {
+          "start": 1614268800,
+          "end": 1614299400,
+          "display": "Boston University",
+          "updated": 1551067896,
+          "latitude": 42.34911724,
+          "longitude": -71.10145829
+        }
+      ],
+      "open_updated": 1551067896,
+      "rank": 64
+    },
+    "bon-me-2": {
+      "description_short": null,
+      "identifier": "bon-me-2",
+      "name": "Bon Me 2",
+      "region": "boston",
+      "url": "bonmetruck.com",
+      "phone": "(617) 989-9804",
+      "email": "info@bonmetruck.com",
+      "twitter": "bonme",
+      "facebook": null,
+      "instagram": null,
+      "takeout_url": null,
+      "delivery_url": null,
+      "description": "Bold, Fresh, and Fun Asian Cuisine.",
+      "rating": 761,
+      "payment_methods": [
+        "cash",
+        "credit_card",
+        "debit_card"
+      ],
+      "promoted": false,
+      "last": {
+        "time": 1613746800,
+        "display": "High St",
+        "latitude": 42.35665612,
+        "longitude": -71.05147216
+      },
+      "catering": {
+        "guest_paid_enabled": false,
+        "host_paid_enabled": false
+      },
+      "open": [
+        {
+          "start": 1614009600,
+          "end": 1614022200,
+          "display": "High St",
+          "updated": 1551067896,
+          "latitude": 42.35665612,
+          "longitude": -71.05147216
+        },
+        {
+          "start": 1614096000,
+          "end": 1614108600,
+          "display": "High St",
+          "updated": 1551067896,
+          "latitude": 42.35665612,
+          "longitude": -71.05147216
+        },
+        {
+          "start": 1614182400,
+          "end": 1614195000,
+          "display": "High St",
+          "updated": 1551067896,
+          "latitude": 42.35665612,
+          "longitude": -71.05147216
+        },
+        {
+          "start": 1614268800,
+          "end": 1614281400,
+          "display": "High St",
+          "updated": 1551067896,
+          "latitude": 42.35665612,
+          "longitude": -71.05147216
+        },
+        {
+          "start": 1614355200,
+          "end": 1614367800,
+          "display": "High St",
+          "updated": 1551067896,
+          "latitude": 42.35665612,
+          "longitude": -71.05147216
+        }
+      ],
+      "open_updated": 1551067896,
+      "rank": 4
+    }
+  }
+}
