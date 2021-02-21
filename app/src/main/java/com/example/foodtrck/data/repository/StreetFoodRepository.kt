@@ -11,6 +11,7 @@ import com.example.foodtrck.data.model.Region
 import com.example.foodtrck.data.remote.GooglePlaceRemoteDataSource
 import com.example.foodtrck.data.remote.StreetFoodRemoteDataSource
 import com.example.foodtrck.utils.Resource
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +23,8 @@ class StreetFoodRepository @Inject constructor(
     private val googlePlaceRemoteDataSource: GooglePlaceRemoteDataSource,
     private val streetFoodRemoteDataSource: StreetFoodRemoteDataSource,
     private val regionDao: RegionDao,
-    private val foodTruckDao: FoodTruckDao
+    private val foodTruckDao: FoodTruckDao,
+    private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend fun fetchRegions(): Flow<Resource<List<Region>>?> {
@@ -46,7 +48,7 @@ class StreetFoodRepository @Inject constructor(
             }
 
             emit(fetchRegionsCache())
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher)
     }
 
     private fun diffList(newList: List<Region>?, oldList: List<Region>?): List<Region>? {
@@ -92,11 +94,11 @@ class StreetFoodRepository @Inject constructor(
                 }
             }
             emit(result)
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher)
     }
 
     fun fetchFoodTruck(foodTruckID: String): LiveData<FoodTruck?> =
-        liveData(Dispatchers.IO) {
+        liveData(dispatcher) {
             emitSource(foodTruckDao.get(foodTruckID))
         }
 

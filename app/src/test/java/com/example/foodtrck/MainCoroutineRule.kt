@@ -16,10 +16,10 @@ class MainCoroutinesRule : TestRule, TestCoroutineScope by TestCoroutineScope() 
     override fun apply(base: Statement?, description: Description?) = object : Statement() {
         override fun evaluate() {
             Dispatchers.setMain(testCoroutinesDispatcher)
-            cleanupTestCoroutines()
             try {
                 base?.evaluate()
             } finally {
+                cleanupTestCoroutines()
                 Dispatchers.resetMain()
             }
         }

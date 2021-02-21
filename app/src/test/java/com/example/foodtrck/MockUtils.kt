@@ -2,9 +2,7 @@ package com.example.foodtrck
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.example.foodtrck.data.model.FoodTruck
-import com.example.foodtrck.data.model.Region
-import com.example.foodtrck.data.model.ScheduleInfo
+import com.example.foodtrck.data.model.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -122,6 +120,10 @@ val mockFoodTruckList = listOf(
         images = null,
         mockSchedules
     )
+)
+
+val mockPlacePhotoList = listOf(
+    GooglePlacePhotos(listOf(GooglePlacePhotoItem((""))))
 )
 
 fun <T> LiveData<T>.getOrAwaitValue(

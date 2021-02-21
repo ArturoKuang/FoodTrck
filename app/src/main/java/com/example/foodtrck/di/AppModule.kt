@@ -22,6 +22,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import java.text.DateFormat
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
@@ -136,7 +137,8 @@ object AppModule {
             googlePlaceRemoteDataSource,
             streetFoodRemoteDataSource,
             regionDao,
-            foodTruckDao
+            foodTruckDao,
+            Dispatchers.IO
         )
     }
 }
