@@ -38,7 +38,7 @@ class RegionDaoTest {
         regionDao.insertAll(mockRegionList)
         val loadFromDB = regionDao.getAll()
 
-        assertTrue(loadFromDB?.containsAll(expected)!!)
+        assertTrue(expected.containsAll(loadFromDB!!))
     }
 
     @Test
@@ -48,7 +48,7 @@ class RegionDaoTest {
         regionDao.delete(mockRegionList.first())
         val loadFromDB = regionDao.getAll()
 
-        assertTrue(loadFromDB?.containsAll(expected)!!)
+        assertTrue(expected.containsAll(loadFromDB!!))
     }
 
     @Test
@@ -58,6 +58,6 @@ class RegionDaoTest {
         regionDao.deleteAll(mockRegionList)
         val loadFromDB = regionDao.getAll()
 
-        assertTrue(loadFromDB?.containsAll(expected)!!)
+        assertTrue(expected.containsAll(loadFromDB!!))
     }
 }
