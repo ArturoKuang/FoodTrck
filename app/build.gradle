@@ -71,6 +71,9 @@ dependencies {
     testImplementation Dependencies.kotlin
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.32-alpha'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
 }
 
 ktlint {

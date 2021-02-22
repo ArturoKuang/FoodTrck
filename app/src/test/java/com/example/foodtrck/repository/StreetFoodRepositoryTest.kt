@@ -1,6 +1,5 @@
 package com.example.foodtrck.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foodtrck.*
 import com.example.foodtrck.data.local.FoodTruckDao
@@ -13,31 +12,27 @@ import com.example.foodtrck.data.repository.StreetFoodRepository
 import com.example.foodtrck.utils.Resource
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.resetMain
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyString
 import org.robolectric.RobolectricTestRunner
 import retrofit2.Response
-import java.io.IOException
 
+@ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
 class StreetFoodRepositoryTest {
 
-    val testDispatcher = TestCoroutineDispatcher()
+    private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var regionDao: RegionDao
     private lateinit var foodTruckDao: FoodTruckDao
     private lateinit var streetFoodService: StreetFoodService
@@ -52,6 +47,11 @@ class StreetFoodRepositoryTest {
         initGooglePlaceService()
         initDao()
         initRepository()
+    }
+
+    @After
+    fun cleanUp() {
+        Dispatchers.resetMain()
     }
 
     private fun initStreetFoodService() {

@@ -4,7 +4,10 @@
 ## About
 An app that gets a list of foodtrucks from <a href="https://streetfoodapp.com/api"> StreetFoodApp.com API </a>, and displays them conveniently. Conversely, the user can choose to see markers of nearby foodtrucks. 
 
-<img src="./docs/demo.gif"/> 
+<p align="center"> <img src="./docs/screens.png" width="50%/> </p>
+
+##
+<p align="center"><img src="./docs/demo.gif" align="center" width="32%"/></p>
 
 ## Installation
 Clone this repository and import into **Android Studio**
@@ -45,6 +48,9 @@ GOOGLE_MAPS_API_KEY=XXXXXXXXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXX
   * [Hilt-ViewModel](https://developer.android.com/training/dependency-injection/hilt-jetpack) - DI for injecting `ViewModel`.
 * [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
 * [Glide](https://github.com/bumptech/glide) - Image loading library.
+* [Espresso](https://developer.android.com/training/testing/espresso) - Android UI Tests
+* [JUnit](https://junit.org/junit5/) - Unit testing
+* [Mockito](https://github.com/mockito/mockito) - Mocking framework
 
 ## APIS
 <a href="https://streetfoodapp.com/api">Street Food API</a>
