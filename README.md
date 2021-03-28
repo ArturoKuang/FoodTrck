@@ -2,7 +2,7 @@
 
 
 ## About
-An app that gets a list of foodtrucks from <a href="https://streetfoodapp.com/api"> StreetFoodApp.com API </a>, and displays them conveniently. Conversely, the user can choose to see markers of nearby foodtrucks. 
+An app that gets a list of foodtrucks from <a href="https://streetfoodapp.com/api"> StreetFoodApp.com API </a>, and displays them conveniently. The user can also choose to see markers of nearby foodtrucks. 
 
 <p align="center"> 
 <img src="./docs/screens.png" width="44%"/> 
